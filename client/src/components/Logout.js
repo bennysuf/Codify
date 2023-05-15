@@ -1,5 +1,12 @@
+import { useContext } from "react"
+import { UserContext } from "./App"
+import {useNavigate } from "react-router-dom";
 
 export default function Logout(){
+
+    const {setAdmin} = useContext(UserContext)
+
+    let navigate = useNavigate()
 
     function handleLogout(){
         fetch("logout", {
@@ -7,6 +14,8 @@ export default function Logout(){
         })
         .then(r => r.json())
         .then(() => {
+            setAdmin(null)
+            navigate("/home")
             // reset states
         })
     }

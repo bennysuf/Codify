@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "./App";
 
 export default function Login() {
@@ -8,6 +8,8 @@ export default function Login() {
   const [errors, setErrors] = useState([]);
 
   const {setAdmin} = useContext(UserContext)
+
+  let navigate = useNavigate()
 
   function handleUsername(e) {
     e.preventDefault();
@@ -31,6 +33,7 @@ export default function Login() {
       if (r.ok) {
         r.json().then((user) => {
           setAdmin(user);
+          navigate("/admin")
           // navigate to admin$/${dev_username}
         });
       } else {
