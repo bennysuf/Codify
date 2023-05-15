@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
 
     
     def find_dev 
-       Developer.find_by(id: session[:user_id])
+       Developer.find_by(id: session[:dev_id])
     end
 
     def authorize
@@ -27,3 +27,6 @@ class ApplicationController < ActionController::API
 
 
 end
+
+# TODO: controllers
+# TODO: mail_form
