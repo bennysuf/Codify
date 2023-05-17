@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { UserContext } from "./App"
 import {useNavigate } from "react-router-dom";
+import api from "../api";
 
 export default function Logout(){
 
@@ -9,7 +10,7 @@ export default function Logout(){
     let navigate = useNavigate()
 
     function handleLogout(){
-        fetch("logout", {
+        api("logout", {
             method: "DELETE"
         })
         .then(r => r.json())

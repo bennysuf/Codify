@@ -7,6 +7,7 @@ import Signup from "./Signup";
 import Logout from "./Logout";
 import DevPage from "./DevPage";
 import "@picocss/pico/css/pico.min.css";
+import api from "../api";
 
 export const UserContext = createContext(null);
 
@@ -17,18 +18,17 @@ function App() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/admin").then((r) => {
+    api("/admin").then((r) => {
       if (r.ok) {
         r.json().then((user) => {
           setAdmin(user)
         });
-     
       }
     });
   }, []);
 
   useEffect(() => {
-    fetch("/developers")
+    api("/developers")
       .then((r) => r.json())
       .then(setDevs);
   }, []);
@@ -46,14 +46,16 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/signup" element={<Signup />} />
-        {admin ? (
-          <Route path="/admin/:dev_username" element={<Admin />} />
-        ) : (
-          <>
-          <Route path="/home" element={<Home />} />
-          <Route path="/developers/:dev_username" element={<DevPage />} />
-          </>
-        )}
+        {devs.length ?
+          admin ? (
+            <Route path="/admin/:dev_username" element={<Admin />} />
+          ) : (
+            <>
+            <Route path="/home" element={<Home />} />
+            <Route path="/developers/:dev_username" element={<DevPage />} />
+            </>
+          )
+        : <></>}
       </Routes>
     </UserContext.Provider>
   );

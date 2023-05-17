@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../api";
 
 export default function Signup({setAdmin}) {
   const [username, setUsername] = useState("");
@@ -30,7 +31,7 @@ export default function Signup({setAdmin}) {
   }
 
   function handleSignup() {
-    fetch("/signup", {
+    api("/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
