@@ -33,8 +33,7 @@ export default function Login() {
       if (r.ok) {
         r.json().then((user) => {
           setAdmin(user);
-          navigate("/admin")
-          // navigate to admin$/${dev_username}
+          navigate(`/admin/${user.username}`)
         });
       } else {
         r.json().then((err) => setErrors(err.error));

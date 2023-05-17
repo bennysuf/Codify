@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup({setAdmin}) {
   const [username, setUsername] = useState("");
@@ -7,6 +7,8 @@ export default function Signup({setAdmin}) {
   const [confirmation, setConfirmation] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState([]);
+
+  const navigate = useNavigate()
 
   function handleUsername(e) {
     e.preventDefault();
@@ -40,6 +42,7 @@ export default function Signup({setAdmin}) {
       if (r.ok) {
         r.json().then((user) => {
             setAdmin(user);
+            navigate(`/admin/${user.username}`)
             // navigate to admin$/${dev_username}
         })
       } else {
