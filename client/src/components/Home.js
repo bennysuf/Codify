@@ -1,12 +1,15 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "./App";
+
 export default function Home() {
   const { devs } = useContext(UserContext);
+
   let navigate = useNavigate();
 
   function handleDevSelect(dev) {
-    navigate(`/developers/${dev.username}`)
+    //! wont work if user manually types route
+    navigate(`/developers/${dev.username}`);
   }
 
   return (

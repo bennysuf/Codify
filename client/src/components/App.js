@@ -21,7 +21,6 @@ function App() {
       if (r.ok) {
         r.json().then((user) => {
           setAdmin(user)
-          // navigate to admin$/${dev_username}
         });
      
       }
@@ -48,11 +47,11 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/signup" element={<Signup />} />
         {admin ? (
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/:dev_username" element={<Admin />} />
         ) : (
           <>
           <Route path="/home" element={<Home />} />
-          <Route path="/developers/:devname" element={<DevPage />} />
+          <Route path="/developers/:dev_username" element={<DevPage />} />
           </>
         )}
       </Routes>
