@@ -1,25 +1,37 @@
-# README
+# DevHub
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Ruby Version: 2.7.4
+- NodeJS Version: 18
+- React Version: 18.2
+- Postgres Version: Latest
 
-Things you may want to cover:
+## Local Development
 
-* Ruby version
+1. Install [docker](https://docker.com) on your system
 
-* System dependencies
+2. Setup your local `.env` file in the root directory
+    ```dotenv
+    POSTGRES_DB=postgres
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=secret
+    # format of this is `$POSTGRES_USER:$POSTGRES_PASSWORD@db:5432/$POSTGRES_DB
+    DATABASE_URL=postgres://postgres:secret@db:5432/postgres
+    ```
 
-* Configuration
+3. Build the docker images with:
+    ```bash
+    docker-compose build
+    ```
 
-* Database creation
+4. Migrate and seed the database
+    ```bash
+    docker-compose run api rails db:migrate
+    docker-compose run api rails db:seed
+    ```
 
-* Database initialization
+5. Turn it on
+    ```bash
+    docker-compose up
+    ```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# devhub
+6. Visit [localhost:4000](http://localhost:4000) for the client and [localhost:3000](http://localhost:3000) for the API

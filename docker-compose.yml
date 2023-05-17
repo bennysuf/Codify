@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - ./.docker/volumes/database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: devhub_development
+      POSTGRES_HOST_AUTH_METHOD: trust # do not deploy this to production
+
+  api:
+    build:
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app/app
+      - ./config:/app/config
+      - ./lib:/app/lib
+      - ./log:/app/log
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: development
+      RAILS_MAX_THREADS: 5
+      RAILS_SERVE_STATIC_FILES: true
+
+  app:
+    image: nodejs:latest
+    env_file:
+      - .env
+    volumes:
+      - ./client:/app
+    build:
+      context: client
+    ports:
+      - "4000:4000"
+    depends_on:
+      - api
