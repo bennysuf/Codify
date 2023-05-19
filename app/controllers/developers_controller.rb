@@ -1,5 +1,5 @@
 class DevelopersController < ApplicationController
-    skip_before_action :authorize, only: [:index, :show, :create]
+    skip_before_action :authorize, only: [:index, :show, :create, :update]
 
     def create
         dev = Developer.create(dev_params)
@@ -22,15 +22,16 @@ class DevelopersController < ApplicationController
     end
 
     def update
-        dev = find_dev
+        # dev = find_dev
+        dev = Developer.find_by(id: params[:id])
         dev.update!(dev_params)
-        render json: dev, status: :updated
+        render json: dev, status: :accepted
     end
 
     private 
 
     def dev_params
-        params.permit(:username, :password, :password_confirmation, :email)
+        params.permit(:username, :password, :password_confirmation, :email, :public_profile)
     end
     
 end
