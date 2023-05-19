@@ -2,6 +2,7 @@ class Developer < ApplicationRecord
     has_many :dev_projects
     has_many :projects, through: :dev_projects
     has_many :contact_forms
+    has_one :profile
     has_secure_password
 
     validates :password, presence: true
