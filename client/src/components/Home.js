@@ -8,8 +8,7 @@ export default function Home() {
   let navigate = useNavigate();
 
   function handleDevSelect(dev) {
-    //! wont work if user manually types route
-    navigate(`/developers/${dev.username}`);
+    navigate(`/developer?developers=${dev.username}`);
   }
 
   return (
