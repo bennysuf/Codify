@@ -1,37 +1,52 @@
 import { useEffect, useContext, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
+import ProjectCard from "./ProjectCard";
+import AboutPage from "./AboutPage";
 import { UserContext } from "./App";
 
-export default function DevPage() {
+export default function DevPage({ dev }) {
   const [currentDev, setCurrentDev] = useState({ username: "Loading..." });
 
-  const { devs } = useContext(UserContext);
+  // console.log("devPage dev", dev);
 
-  const navigate = useNavigate();
-
-  const { dev_username } = useParams();
-
-  const file = devs.filter((dev) => dev.username === dev_username);
-  console.log("user", file);
-
-  /* 
-  *1. needs to find if dev exists
-  !purely a devpage problem, wont work in parent if page reload
-  make async function or setTimeout to let the page load
-  setTimeout doesnt work because it seems to save variable first then waits to render
-  async wouldnt work because the page renders then rerenders to give dev
-  ?make onclick/search in Home, then have filter update state to be current dev in Home, then pass it down here.
-  
-  *2. if dev doesn't exist, dont give access
-  
-  *3. if dev exists, render devs page
-  
-  */
-
-  //TODO: figure out way to have loading screen while filter runs, then render name or error
   useEffect(() => {
-    setCurrentDev(file[0]);
+    setCurrentDev(dev);
   }, []);
 
-  return <>{currentDev?.username}</>;
+  const projects = dev.projects.map((project) => (
+    <ProjectCard project={project} />
+  ));
+  console.log("devpage resume", dev.profile);
+  return (
+    <>
+      <nav aria-label="breadcrumb">
+        <ul>
+          <li>
+            <a href={"/about?developers=" + dev.username}>About</a>
+          </li>
+          <li>
+            <a href={"/contact?developers=" + dev.username}>Contact</a>
+          </li>
+          <li>
+            <a
+              href={"https://" + dev.profile.resume}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Resume
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <h3>DevPage</h3>
+      {currentDev?.username}
+      {projects}
+      <Routes>
+        <Route
+          path={"/about?developers=" + dev.username}
+          elements={AboutPage}
+        />
+      </Routes>
+    </>
+  );
 }
