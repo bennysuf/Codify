@@ -1,14 +1,14 @@
 import React, { useState, useEffect, createContext } from "react";
 import { Route, Routes, useNavigate, useSearchParams } from "react-router-dom";
-import Home from "./Home";
+import Home from "./user/Home";
 import Login from "./Login";
-import Admin from "./Admin";
+import Admin from "./admin/Admin";
 import Signup from "./Signup";
-import Logout from "./Logout";
-import DevPage from "./DevPage";
+import Logout from "./admin/Logout";
+import DevPage from "./user/DevPage";
 import NotFound from "./NotFound";
 import "@picocss/pico/css/pico.min.css";
-import AboutPage from "./AboutPage";
+import AboutPage from "./user/AboutPage";
 
 export const UserContext = createContext(null);
 
