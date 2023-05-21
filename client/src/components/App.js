@@ -20,7 +20,7 @@ function App() {
 
   const param = searchParams.get("developers");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/admin").then((r) => {
@@ -38,7 +38,7 @@ function App() {
       .then(setDevs);
   }, []);
 
-  const file = devs.filter(
+  const currentDev = devs.filter(
     (dev) => dev.username === param && dev.public_profile === true
   );
 
@@ -49,6 +49,7 @@ function App() {
         setAdmin,
         devs,
         setDevs,
+        currentDev,
       }}
     >
       <Routes>
@@ -60,13 +61,12 @@ function App() {
         ) : (
           <>
             <Route path="/home" element={<Home />} />
-            {file[0] ? (
+            {currentDev[0] ? (
               <>
-                <Route path="/developer" element={<DevPage dev={file[0]} />} />
-                <Route path="/about" element={<AboutPage about={file[0].profile.about}/>} />
+                <Route path="/developer" element={<DevPage />} />
+                <Route path="/about" element={<AboutPage />} />
               </>
             ) : (
-              //? setTimeout?
               <Route path="/developer" element={<NotFound />} />
             )}
           </>
