@@ -15,7 +15,6 @@ export const UserContext = createContext(null);
 function App() {
   const [admin, setAdmin] = useState(null);
   const [devs, setDevs] = useState([]);
-  // const [existentDev, setExistentDev] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -42,12 +41,6 @@ function App() {
   const file = devs.filter(
     (dev) => dev.username === param && dev.public_profile === true
   );
-  // console.log("App file", file[0]?.profile.resume);
-  // if(file[0]){
-  //   setExistentDev("developer");
-  // } else {
-  //   setExistentDev("not_found");
-  // } //TODO: make param dynamic?
 
   return (
     <UserContext.Provider
@@ -59,7 +52,7 @@ function App() {
       }}
     >
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/signup" element={<Signup />} />
         {admin ? (
@@ -70,7 +63,7 @@ function App() {
             {file[0] ? (
               <>
                 <Route path="/developer" element={<DevPage dev={file[0]} />} />
-                <Route path="/about" element={<AboutPage />} />
+                <Route path="/about" element={<AboutPage about={file[0].profile.about}/>} />
               </>
             ) : (
               //? setTimeout?
