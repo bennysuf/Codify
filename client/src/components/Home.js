@@ -1,6 +1,7 @@
-import { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "./App";
+import NavBar from "./NavBar";
 
 export default function Home() {
   const { devs } = useContext(UserContext);
@@ -13,7 +14,7 @@ export default function Home() {
 
   return (
     <>
-      <Link to="/">{"Login"}</Link>
+      <NavBar />
       <details role="list">
         <summary aria-haspopup="listbox">Find developers</summary>
         <ul role="listbox">
