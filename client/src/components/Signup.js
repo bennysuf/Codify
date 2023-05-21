@@ -91,7 +91,7 @@ export default function Signup({setAdmin}) {
         Signup
       </button>
       <br />
-      <Link to="/">{"Login"}</Link>
+      <Link to="/login">{"Login"}</Link>
       {errors.map((err) => (
         <h4 key={err}>{err}</h4>
       ))}
