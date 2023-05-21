@@ -1,8 +1,15 @@
-
+import { useEffect, useState } from "react"
 
 export default function NotFound(){
+    const [loading, setLoading] = useState("Loading...")
+
+    useEffect(()=>{
+        setTimeout(()=>{
+            setLoading("404 page not found")
+        },500)
+    })
 
     return (
-        <h1>404 Not found</h1>
+        <h1>{loading}</h1>
     )
 }
