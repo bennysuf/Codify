@@ -1,11 +1,19 @@
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "./App";
+import DevNavBar from "./DevNavBar";
 
+export default function AboutPage() {
+  const { currentDev } = useContext(UserContext);
 
-export default function AboutPage({about}){
+  const { profile } = currentDev[0];
 
-return (
+  return (
     <>
-    <h3>About page</h3>
-    <p>{about}</p>
+      <DevNavBar />
+      <article>
+        <header>About Me</header>
+        <p>{profile.about}</p>
+      </article>
     </>
-)
+  );
 }
