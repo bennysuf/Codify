@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../App";
+import AdminNavBar from "./AdminNavBar";
 
-export default function NewProject({ projects, setProjects }) {
+export default function NewProject() {
+  const { projects, setProjects } = useContext(UserContext);
+
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
+  const [errors, setErrors] = useState([]);
 
   function handleTitleChange(e) {
     e.preventDefault();
@@ -28,23 +33,50 @@ export default function NewProject({ projects, setProjects }) {
       description: description,
     };
     fetch("/projects", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(created)
-    })
-    .then(r => {
-        if(r.ok){
-            r.json().then(() => setProjects([...projects, created]))
-        }
-    })
-   
-    
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(created),
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then(() => setProjects([...projects, created]));
+      } else {
+        r.json().then((err) => {
+          const arr = [];
+          for (const key in err.errors) {
+            arr.push(`${key}: ${err.errors[key]}`);
+          }
+          setErrors(arr);
+        });
+      }
+    });
   }
 
   return (
-    // input fields
-    <form onSubmit={handleSubmit}>
-      <button type="submit"></button>
-    </form>
+    <>
+      <AdminNavBar />
+      <form onSubmit={handleSubmit}>
+        <div className="input">
+          <input
+            placeholder="Title"
+            value={title}
+            onChange={handleTitleChange}
+          />
+          <input placeholder="Url" value={url} onChange={handleUrlChange} />
+          <textarea
+            placeholder="Description"
+            value={description}
+            onChange={handleDescriptionChange}
+            style={{ height: "100px" }}
+          ></textarea>
+        </div>
+        <button type="submit" className="button">
+          Submit
+        </button>
+        <br/>
+        {errors.map((err) => (
+          <h5 className="input" key={err}>{err}</h5>
+        ))}
+      </form>
+    </>
   );
 }
