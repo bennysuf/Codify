@@ -7,10 +7,11 @@ class ProfilesController < ApplicationController
     end
 
     def create
-        # dev = find_dev
-        dev = Developer.first
+        dev = find_dev
+        # dev = Developer.first
         # byebug
         # profile = dev.profile.create(profile_params)
+        #! no way of creating profile in frontend. 
         profile = Profile.create(
             developer_id: dev.id,
             about: params[:about],
@@ -21,8 +22,10 @@ class ProfilesController < ApplicationController
     
     def update
         dev = find_dev
-        profile = dev.profile.update!(profile_params)
-        render json: profile, status: :accepted
+        # byebug
+        dev.profile.create!(profile_params)
+        # dev.profile.update!(profile_params)
+        render json: dev, status: :accepted
     end
 
     def index 
@@ -40,6 +43,6 @@ class ProfilesController < ApplicationController
     private
 
     def profile_params
-        params.permit(:about, :social_links, :resume)
+        params.require(:profile).permit(:about, :social_links, :resume)
     end
 end
