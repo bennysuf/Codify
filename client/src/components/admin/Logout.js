@@ -3,7 +3,7 @@ import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
 
 export default function Logout() {
-  const { setAdmin } = useContext(UserContext);
+  const { setAdmin, setProjects } = useContext(UserContext);
 
   let navigate = useNavigate();
 
@@ -13,7 +13,7 @@ export default function Logout() {
     }).then(() => {
       setAdmin(null);
       navigate("/home");
-      // reset states
+      setProjects([])
     });
   }
 
