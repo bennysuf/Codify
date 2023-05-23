@@ -10,13 +10,14 @@ class ProjectsController < ApplicationController
 
     def update
         project = Project.find_by_id(params[:id]) 
-        render json: project.update!(project_params), status: :updated
+        project.update!(project_params)
+        render json: project, status: :accepted 
     end
 
     def show
         dev = find_dev
         # dev = Developer.first
-        projects = dev.projects.all
+        projects = dev.projects.all.order("created_at DESC")
         render json: projects, status: :ok
     end
 
@@ -33,7 +34,7 @@ class ProjectsController < ApplicationController
     private
 
     def project_params
-        params.permit(:title, :url, :description)
+        params.require(:project).permit(:title, :url, :description)
     end
 
 end
