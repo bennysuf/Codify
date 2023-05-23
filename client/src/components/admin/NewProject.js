@@ -1,9 +1,8 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../App";
-import AdminNavBar from "./AdminNavBar";
 
 export default function NewProject() {
-  const { projects, setProjects } = useContext(UserContext);
+  const { projects, setProjects, navigate } = useContext(UserContext);
 
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -48,12 +47,12 @@ export default function NewProject() {
           setErrors(arr);
         });
       }
+      navigate("/admin/projects-page");
     });
   }
 
   return (
     <>
-      <AdminNavBar />
       <form onSubmit={handleSubmit}>
         <div className="input">
           <input
@@ -67,16 +66,20 @@ export default function NewProject() {
             value={description}
             onChange={handleDescriptionChange}
             style={{ height: "100px" }}
-          ></textarea>
+          />
         </div>
         <button type="submit" className="button">
           Submit
         </button>
-        <br/>
+        <br />
         {errors.map((err) => (
-          <h5 className="input" key={err}>{err}</h5>
+          <h5 className="input" key={err}>
+            {err}
+          </h5>
         ))}
       </form>
     </>
   );
 }
+
+//! http://localhost:4000/admin/index.css 404 (Not Found)
