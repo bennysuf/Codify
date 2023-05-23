@@ -1,26 +1,28 @@
-import { useContext } from "react"
-import { UserContext } from "../App"
-import {useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
-export default function Logout(){
+export default function Logout() {
+  const { setAdmin } = useContext(UserContext);
 
-    const {setAdmin} = useContext(UserContext)
+  let navigate = useNavigate();
 
-    let navigate = useNavigate()
+  function handleLogout() {
+    fetch("/logout", {
+      method: "DELETE",
+    }).then(() => {
+      setAdmin(null);
+      navigate("/home");
+      // reset states
+    });
+  }
 
-    function handleLogout(){
-        fetch("logout", {
-            method: "DELETE"
-        })
-        .then(r => r.json())
-        .then(() => {
-            setAdmin(null)
-            navigate("/home")
-            // reset states
-        })
-    }
-
-    return (
-      <button onClick={handleLogout}>Logout</button>
-    )
+  return (
+    <button
+      onClick={handleLogout}
+      style={{ float: "right", marginTop: "10px", width: "20%" }}
+    >
+      Logout
+    </button>
+  );
 }
