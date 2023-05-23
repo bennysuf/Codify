@@ -12,7 +12,7 @@ export default function AboutPage() {
       <DevNavBar />
       <article>
         <header>About Me</header>
-        <p>{profile.about}</p>
+        <textarea defaultValue={profile.about}/>
       </article>
     </>
   );
