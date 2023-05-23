@@ -1,5 +1,5 @@
-class SessionController < ApplicationController
-    skip_before_action :authorize, only: [:create]
+class SessionsController < ApplicationController
+    skip_before_action :authorize, only: [:create, :destroy]
 
     def create
         #TODO: just have username or password, not either or 
