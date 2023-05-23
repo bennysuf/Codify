@@ -5,15 +5,18 @@ export default function AdminNavBar(){
 
     return (
         <nav aria-label="breadcrumb">
-        <ul>
+        <ul style={{ marginLeft: "3%" }}>
           <li key="about">
-            <a href="/about" >Edit about</a>
+            <a href="/admin/edit-admin" >Edit admin</a>
           </li>
           <li key="new-project">
-            <a href="/new-project">New project</a>
+            <a href="/admin/new-project">New project</a>
           </li>
           <li key="projects-page">
-            <a href="/projects-page">Projects</a>
+            <a href="/admin/projects-page">Projects</a>
+          </li>
+          <li key="admin">
+            <a href="/admin">Home</a>
           </li>
         </ul>
       </nav>
