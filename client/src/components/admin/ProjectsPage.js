@@ -1,19 +1,36 @@
-// import { useState, useContext } from "react";
-// import { UserContext } from "../App";
+import { useContext } from "react";
+import { Route, Routes, useNavigate} from "react-router-dom";
+import { UserContext } from "../App";
+import ProjectCard from "../ProjectCard";
+import EditProject from "./EditProject";
 
-export default function ProjectsPage({projects}) {
-//   const { admin } = useContext(UserContext);
+export default function ProjectsPage() {
+  const { projects } = useContext(UserContext);
 
-//   const [projects, setProjects] = useState(admin.projects);
+  const navigate = useNavigate()
 
-  const projectList = projects((project) => {
-    const { title, description, url } = project;
+  function handleEdit(project){
+      navigate(`/admin/projects-page/${project.id}`)
+  }
 
-    //button/Link to edit project
+  const projectList = projects.map((project) => {
+    return (
+      <div key={project.url}>
+        <ProjectCard key={project.id} project={project} />
+        <br />
+        <button className="button" onClick={() => handleEdit(project)}>Edit</button>
+        <br />
+      </div>
+    );
   });
 
-  //? use ProjectCard?
-  //? nested route?
-
-  return <>{projectList}</>;
+  return (
+    <>
+      <h1>Project page</h1>
+      <Routes>
+        <Route path=":projectId" element={<EditProject />} />
+      </Routes>
+      {projectList}
+    </>
+  );
 }
