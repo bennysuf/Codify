@@ -12,8 +12,7 @@ class DevelopersController < ApplicationController
     end
  
     def show
-        # dev = find_dev
-        dev = Developer.find_by(id: params[:id])
+        dev = find_dev
         render json: dev, status: :ok
     end
 
@@ -22,8 +21,8 @@ class DevelopersController < ApplicationController
     end
 
     def update
-        # dev = find_dev
-        dev = Developer.find_by(id: params[:id])
+        dev = find_dev
+        # dev = Developer.find_by(id: params[:id])
         dev.update!(dev_params)
         render json: dev, status: :accepted
     end
