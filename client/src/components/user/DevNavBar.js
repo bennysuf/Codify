@@ -12,7 +12,7 @@ export default function DevNavBar(){
         <nav aria-label="breadcrumb">
         <ul>
           <li key="dev-page">
-            <a href={"/developer?developers=" + username} >Dev page</a>
+            <a href={"/developer?developers=" + username}>Dev page</a>
           </li>
           <li key="about">
             <a href={"/about?developers=" + username}>About</a>
