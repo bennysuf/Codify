@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   resources :developers, exluding: [:destroy]
   get "/admin", to: "developers#show"
   post "/signup", to: "developers#create"
-  post "/login", to: "session#create"
-  delete "/logout", to: "session#destroy"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   
   # Defines the root path route ("/")
