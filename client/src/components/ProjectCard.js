@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 export default function ProjectCard({ project }) {
   const { title, url, description } = project;
 
@@ -6,14 +6,14 @@ export default function ProjectCard({ project }) {
   // TODO: add dynamic name change for url
 
   return (
-    <article>
-      <h1>Title: {title}</h1>
-      <h1>
+    <article className="card">
+      <header>Title: {title}</header>
+      <h4>
         Link:{" "}
         <a href={"https://" + url} target="_blank" rel="noreferrer">
           {url}
         </a>
-      </h1>
+      </h4>
       <p>Description: {description}</p>
     </article>
   );
