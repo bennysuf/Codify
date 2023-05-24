@@ -9,9 +9,6 @@ import Logout from "./admin/Logout";
 import DevPage from "./user/DevPage";
 import "@picocss/pico/css/pico.min.css";
 import AboutPage from "./user/AboutPage";
-// import EditAdmin from "./admin/EditAdmin";
-// import NewProject from "./admin/NewProject";
-// import ProjectsPage from "./admin/ProjectsPage";
 
 export const UserContext = createContext(null);
 
@@ -47,8 +44,11 @@ function App() {
   }, []);
 
   const currentDev = devs.filter(
-    (dev) => dev.username === param && dev.public_profile === true
+    (dev) => dev.username === param
   );
+  // const currentDev = devs.filter(
+  //   (dev) => dev.username === param && dev.public_profile === true
+  // );
 
   return (
     <UserContext.Provider
