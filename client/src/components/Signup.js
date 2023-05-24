@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "./App";
 
-export default function Signup({setAdmin}) {
+export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmation, setConfirmation] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState([]);
+
+  const {setAdmin} = useContext(UserContext);
 
   const navigate = useNavigate()
 
@@ -43,15 +46,12 @@ export default function Signup({setAdmin}) {
         r.json().then((user) => {
             setAdmin(user);
             navigate(`/admin/${user.username}`)
-            // navigate to admin$/${dev_username}
         })
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
     });
   }
-
-  console.log("err", errors)
 
   return (
     <div className="input" style={{ marginTop: "10%" }}>
