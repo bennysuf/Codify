@@ -2,7 +2,14 @@ class DevelopersController < ApplicationController
     skip_before_action :authorize, only: [:index, :show, :create, :update]
 
     def create
-        dev = Developer.create(dev_params)
+        dev = Developer.create(
+            username: params[:username],
+            password: params[:password],
+            password_confirmation: params[:password_confirmation],
+            email: params[:email],
+            public_profile: false
+            # dev_params
+            )
         if dev.valid?
             session[:dev_id] = dev.id
             render json: dev, status: :created
@@ -17,12 +24,11 @@ class DevelopersController < ApplicationController
     end
 
     def index
-        render json: Developer.all, status: :ok
+        render json: Developer.all.where(public_profile: true), status: :ok
     end
 
     def update
         dev = find_dev
-        # dev = Developer.find_by(id: params[:id])
         dev.update!(dev_params)
         render json: dev, status: :accepted
     end
