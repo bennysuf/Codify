@@ -6,20 +6,23 @@ import EditAdmin from "./EditAdmin";
 import NewProject from "./NewProject";
 import AdminNavBar from "./AdminNavBar";
 import ProjectsPage from "./ProjectsPage";
+import CreateProfile from "./CreateProfile";
 
 export default function Admin() {
-  const [about, setAbout] = useState(false)
+  const [about, setAbout] = useState(false);
   const { admin } = useContext(UserContext);
+
+  const { profile, username } = admin;
 
   const { projectId } = useParams();
 
-  console.log("Admin", projectId);
+  // function Home() {
+  //   return window.location.href;
+  // }
 
-  function Home() {return window.location.href}
+  // console.log("URL", Home())
 
-  console.log("URL", Home())
-
-  function handleClick(){
+  function handleClick() {
     setAbout(!about);
     //TODO: grab param, if its not admin then dont show button
   }
@@ -27,17 +30,23 @@ export default function Admin() {
   return (
     <>
       <Logout />
-      <AdminNavBar />
-      {admin.username}
-      <button onClick={handleClick} className="button">See about me</button>
-      <br/>
+      <AdminNavBar profile={admin.profile}/>
+      {username}
+      <button onClick={handleClick} className="button">
+        See about me
+      </button>
+      <br />
       {about ? (
-         <textarea defaultValue={admin.profile.about} style={{ height: "400px" }} />
+        <textarea
+          defaultValue={profile ? profile.about : "Add about me"}
+          style={{ height: "400px" }}
+        />
       ) : (
         ""
       )}
       <Routes>
         <Route path="edit-admin" element={<EditAdmin />} />
+        <Route path="create-profile" element={<CreateProfile />} />
         <Route path="new-project" element={<NewProject />} />
         <Route path="projects-page/*" element={<ProjectsPage />} />
       </Routes>
