@@ -4,18 +4,15 @@ import { UserContext } from "../App";
 export default function EditAdmin() {
   const { admin, navigate, setAdmin } = useContext(UserContext);
 
-  // const { about, social_links } = admin.profile;
   const { about, social_links, resume } = admin.profile;
 
   //TODO: edit public profile/admin in general, how to have two fetches? use same update value? or create new one fetch and update value? or create new component?
 
+
   const [aboutPage, setAboutPage] = useState(about);
   const [resumeUrl, setResumeUrl] = useState(resume);
   const [socialLinks, setSocialLinks] = useState(social_links);
-  // const [aboutPage, setAboutPage] = useState("");
-  // const [resumeUrl, setResumeUrl] = useState("");
-  // const [socialLinks, setSocialLinks] = useState("");
-
+ 
   function handleAboutChange(e) {
     e.preventDefault();
     setAboutPage(e.target.value);
