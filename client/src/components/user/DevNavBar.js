@@ -6,13 +6,14 @@ export default function DevNavBar(){
 
     const { username, profile } = currentDev[0]
 
-    //if current page, make <a> class="secondary" else "" 
+    // TODO: if current page, make <a> class="secondary" else "" 
 
     return (
         <nav aria-label="breadcrumb">
-        <ul>
+        <ul style={{ marginLeft: "3%" }}>
           <li key="dev-page">
-            <a href={"/developer?developers=" + username}>Dev page</a>
+            <a href={"/developer?developers=" + username}>{username}'s page</a> 
+            {/* // TODO: make username first letter capital */}
           </li>
           <li key="about">
             <a href={"/about?developers=" + username}>About</a>
