@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { UserContext } from "../App";
 import DevNavBar from "./DevNavBar";
 
@@ -23,7 +23,8 @@ export default function AboutPage() {
       <DevNavBar />
       <article>
         <header>About Me</header>
-        <textarea defaultValue={profile ? profile.about : ""} style={{ height: `500px` }}/>
+        <textarea defaultValue={profile.about} style={{ height: `500px` }}/>
+        {/* <textarea defaultValue={profile ? profile.about : ""} style={{ height: `500px` }}/> */}
       </article>
     </>
   );
