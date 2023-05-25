@@ -1,14 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
-import { Route, Routes, useNavigate, useSearchParams } from "react-router-dom";
-import Login from "./Login";
-import Signup from "./Signup";
-import Home from "./user/Home";
-import Admin from "./admin/Admin";
-import NotFound from "./NotFound";
-import Logout from "./admin/Logout";
-import DevPage from "./user/DevPage";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import "@picocss/pico/css/pico.min.css";
-import AboutPage from "./user/AboutPage";
+import Routing from "./Routing";
 
 export const UserContext = createContext(null);
 
@@ -27,9 +20,9 @@ function App() {
     fetch("/admin").then((r) => {
       if (r.ok) {
         r.json().then((user) => {
-          if(user){
+          if (user) {
             setAdmin(user);
-            setProjects(user.projects)
+            setProjects(user.projects);
           }
           //TODO: remove setProjects
         });
@@ -43,9 +36,7 @@ function App() {
       .then(setDevs);
   }, []);
 
-  const currentDev = devs.filter(
-    (dev) => dev.username === param
-  );
+  const currentDev = devs.filter((dev) => dev.username === param);
   // const currentDev = devs.filter(
   //   (dev) => dev.username === param && dev.public_profile === true
   // );
@@ -60,33 +51,10 @@ function App() {
         currentDev,
         projects,
         setProjects,
-        navigate
+        navigate,
       }}
     >
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/signup" element={<Signup />} />
-        {admin ? (
-          <>
-          <Route path="/admin/*" element={<Admin />} />
-          <Route path="/home" element={<Home />} /> {/* incase Admin goes back a page*/}
-          </>
-        ) : (
-          <>
-            <Route path="/admin/*" element={<NotFound />} />
-            <Route path="/home" element={<Home />} />
-            {currentDev[0] ? (
-              <>
-                <Route path="/developer/*" element={<DevPage />} />
-                <Route path="/about" element={<AboutPage />} />
-              </>
-            ) : (
-              <Route path="/developer/*" element={<NotFound />} />
-            )}
-          </>
-        )}
-      </Routes>
+      <Routing admin={admin} currentDev={currentDev[0]}/>
     </UserContext.Provider>
   );
 }
