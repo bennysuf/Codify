@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <NavBar />
-      <details role="list">
+      <details role="list" className="input">
         <summary aria-haspopup="listbox">Find developers</summary>
         <ul role="listbox">
           {devs.map((dev) => {
