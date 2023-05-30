@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
-  resources :profiles
   # resources :contact_forms
   resources :dev_projects
   resources :projects
-  # resources :projects, exluding: [:index]
-  resources :developers, exluding: [:destroy]
+  resources :developers
   get "/admin", to: "developers#show"
   post "/signup", to: "developers#create"
   post "/login", to: "sessions#create"
