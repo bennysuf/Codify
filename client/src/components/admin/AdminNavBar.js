@@ -1,5 +1,4 @@
-export default function AdminNavBar({ profile }) {
-  const param = profile ? "edit-admin" : "create-profile";
+export default function AdminNavBar() {
 
   // TODO: if current page, make <a> class="secondary" else ""
 
@@ -16,7 +15,7 @@ export default function AdminNavBar({ profile }) {
           <a href="/admin/new-project">New project</a>
         </li>
         <li key="about">
-          <a href={"/admin/" + param}>Edit profile</a>
+          <a href={"/admin/edit-admin"}>Edit profile</a>
         </li>
       </ul>
     </nav>
