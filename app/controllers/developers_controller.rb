@@ -2,15 +2,8 @@ class DevelopersController < ApplicationController
     skip_before_action :authorize, only: [:index, :show, :create, :update, :destroy]
 
     def create
-        dev = Developer.create(
-            username: params[:username],
-            password: params[:password],
-            password_confirmation: params[:password_confirmation],
-            email: params[:email],
-            public_profile: false
-            # dev_params
-            #? how to have strong params + public_profile? 
-            )
+        byebug
+        dev = Developer.create(dev_params)
         if dev.valid?
             session[:dev_id] = dev.id
             render json: dev, status: :created
@@ -31,21 +24,23 @@ class DevelopersController < ApplicationController
 
     def update
         dev = find_dev
+        dev_finder = Developer.find_by(username: params[:username])
         dev.tap do |u|
             if params[:username] == ""
                 render json: {error: "Please add username"}, status: :unprocessable_entity
-            elsif dev.username == params[:username]
-                # ? how can i combine this with no other error? 
-                u.public_profile = params[:public_profile]
-                u.save(validate: false)
-                render json: dev, status: :accepted
-            elsif Developer.find_by(username: params[:username]) != nil
+            elsif dev_finder != nil && dev_finder.username != dev.username
                 render json: {error: "Username already exists"}, status: :unprocessable_entity
-            else 
+            elsif url_validator(params[:resume])
+                # byebug
                 u.username = params[:username]
                 u.public_profile = params[:public_profile]
+                u.about = params[:about]
+                u.resume = params[:resume]
+                u.social_links = params[:social_links]
                 u.save(validate: false)
                 render json: dev, status: :accepted
+            else 
+                render json: {error: "Invalid data"}, status: :unprocessable_entity
             end
         end
     end
@@ -58,8 +53,13 @@ class DevelopersController < ApplicationController
 
     private 
 
+    def url_validator(param) 
+        # byebug
+        !!(param.match(/\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i))
+    end
+
     def dev_params
-        params.require(:developer).permit(:username, :password, :password_confirmation, :email, :public_profile)
+        params.permit(:username, :password, :password_confirmation, :email, :public_profile, :about, :resume, :social_links)
     end
     
 end
