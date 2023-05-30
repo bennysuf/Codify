@@ -6,7 +6,7 @@ export default function AboutPage() {
   // const [num, setNum] = useState(100)
   const { currentDev } = useContext(UserContext);
 
-  const { profile } = currentDev[0];
+  const { about } = currentDev[0];
 
 
   //ternary, if profile.about.length 
@@ -23,7 +23,7 @@ export default function AboutPage() {
       <DevNavBar />
       <article>
         <header>About Me</header>
-        <textarea defaultValue={profile.about} style={{ height: `500px` }}/>
+        <textarea defaultValue={about} style={{ height: `500px` }}/>
         {/* <textarea defaultValue={profile ? profile.about : ""} style={{ height: `500px` }}/> */}
       </article>
     </>
