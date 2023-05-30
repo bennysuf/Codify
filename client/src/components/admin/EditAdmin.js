@@ -2,10 +2,9 @@ import { useState, useContext } from "react";
 import { UserContext } from "../App";
 
 export default function EditAdmin() {
-  const { admin, navigate, setAdmin } = useContext(UserContext);
+  const { admin, navigate, setAdmin, devs, setDevs } = useContext(UserContext);
 
-  const { username, public_profile, profile } = admin;
-  const { about, social_links, resume } = profile;
+  const { username, public_profile, resume, about, social_links } = admin;
 
   const [aboutPage, setAboutPage] = useState(about);
   const [resumeUrl, setResumeUrl] = useState(resume);
@@ -31,40 +30,38 @@ export default function EditAdmin() {
     setNewUsername(e.target.value);
   }
 
+  const update = {
+    about: aboutPage,
+    social_links: socialLinks,
+    resume: resumeUrl,
+    username: newUsername,
+    public_profile: publicProfile,
+  };
+
   function handleSubmit(e) {
-    // ? can i update developers and in backend update dev.profile?
+    setErrors("");
     e.preventDefault();
-    const updateProfile = {
-      about: aboutPage,
-      social_links: socialLinks,
-      resume: resumeUrl,
-    };
-    fetch(`/profiles/${admin.id}`, {
+
+    fetch(`/developers/${admin.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updateProfile),
+      body: JSON.stringify(update),
     }).then((r) => {
       if (r.ok) {
+        // r.json().then((d) => console.log("edit data", d));
         r.json().then((d) => {
-          const updateAdmin = {
-            username: newUsername,
-            public_profile: publicProfile,
-          };
-          fetch(`/developers/${d.id}`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updateAdmin),
-          }).then((r) => {
-            if (r.ok) {
-              r.json().then((d) => setAdmin(d));
-              navigate("/admin");
-            } else {
-              r.json().then((err) => {
-                setErrors(err.error);
-                window.scrollTo(0, 0);
-              });
-            }
-          });
+          setAdmin(d);
+          setDevs(
+            devs.map((dev) => {
+              return dev.id !== d.id ? dev : d;
+            })
+          );
+        });
+        navigate("/admin");
+      } else {
+        r.json().then((err) => {
+          setErrors(err.error);
+          window.scrollTo(0, 0);
         });
       }
     });
@@ -109,7 +106,7 @@ export default function EditAdmin() {
             Social links
             <input
               placeholder="Social links"
-              value={socialLinks ? socialLinks : ""}
+              value={socialLinks}
               onChange={handleSocialChange}
             />
           </label>
