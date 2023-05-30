@@ -13,7 +13,7 @@ export default function Admin() {
   // const [page, setPage] = useState(true);
   const { admin } = useContext(UserContext);
 
-  const { profile, username } = admin;
+  const { username } = admin;
 
   // function Home() {
   //   return window.location.pathname;
@@ -32,7 +32,7 @@ export default function Admin() {
   return (
     <>
       <Logout />
-      <AdminNavBar profile={admin.profile}/>
+      <AdminNavBar />
       {/* <AdminNavBar profile={admin.profile} setPage={setPage} /> */}
       {username}
       {/* {window.location.pathname === "/admin/" ? (
