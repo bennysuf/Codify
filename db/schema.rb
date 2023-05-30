@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_17_212627) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_12_160246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,20 +37,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_212627) do
   create_table "developers", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
-    t.boolean "public_profile"
+    t.boolean "public_profile", default: false
+    t.text "about", default: ""
+    t.text "social_links", default: ""
+    t.string "resume", default: ""
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "profiles", force: :cascade do |t|
-    t.text "about"
-    t.text "social_links"
-    t.string "resume"
-    t.bigint "developer_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["developer_id"], name: "index_profiles_on_developer_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -64,5 +57,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_212627) do
   add_foreign_key "contact_forms", "developers"
   add_foreign_key "dev_projects", "developers"
   add_foreign_key "dev_projects", "projects"
-  add_foreign_key "profiles", "developers"
 end
