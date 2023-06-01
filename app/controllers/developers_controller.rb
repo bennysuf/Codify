@@ -31,12 +31,14 @@ class DevelopersController < ApplicationController
             elsif dev_finder != nil && dev_finder.username != dev.username
                 render json: {error: "Username already exists"}, status: :unprocessable_entity
             elsif url_validator(params[:resume])
-                # byebug
                 u.username = params[:username]
                 u.public_profile = params[:public_profile]
                 u.about = params[:about]
                 u.resume = params[:resume]
-                u.social_links = params[:social_links]
+                data = params[:social_links].map do |param|
+                    { url: param[:url], website: param[:website] }
+                  end
+                u.social_links = data
                 u.save(validate: false)
                 render json: dev, status: :accepted
             else 
@@ -54,7 +56,6 @@ class DevelopersController < ApplicationController
     private 
 
     def url_validator(param) 
-        # byebug
         !!(param.match(/\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i))
     end
 
