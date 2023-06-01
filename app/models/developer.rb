@@ -5,6 +5,8 @@ class Developer < ApplicationRecord
 
     has_secure_password
 
+    serialize :social_links, Array
+
     validates :password, presence: true
     validates :password_confirmation, presence: true
     validates :username, presence: true, uniqueness: true
