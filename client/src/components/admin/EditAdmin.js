@@ -6,6 +6,9 @@ export default function EditAdmin() {
 
   const { username, public_profile, resume, about, social_links } = admin;
 
+  // start social_links column with empty object, then frontend will "map" through it.
+  // TODO: change default value of social_link to an empty array
+
   const [aboutPage, setAboutPage] = useState(about);
   const [resumeUrl, setResumeUrl] = useState(resume);
   const [socialLinks, setSocialLinks] = useState(social_links);
@@ -20,10 +23,6 @@ export default function EditAdmin() {
   function handleResumeChange(e) {
     e.preventDefault();
     setResumeUrl(e.target.value);
-  }
-  function handleSocialChange(e) {
-    e.preventDefault();
-    setSocialLinks(e.target.value);
   }
   function handleUsernameChange(e) {
     e.preventDefault();
@@ -67,6 +66,55 @@ export default function EditAdmin() {
     });
   }
 
+  function handleChangeWebsite(index, newWebsite) {
+    setSocialLinks((prevValues) => {
+      const updatedValues = [...prevValues];
+      updatedValues[index] = {
+        ...updatedValues[index],
+        website: newWebsite,
+      };
+      return updatedValues;
+    });
+  }
+
+  function handleChangeUrl(index, newUrl) {
+    setSocialLinks((prevValues) => {
+      const updatedValues = [...prevValues];
+      updatedValues[index] = {
+        ...updatedValues[index],
+        url: newUrl,
+      };
+      return updatedValues;
+    });
+  }
+
+  function handleAddInputPair(e) {
+    e.preventDefault();
+    setSocialLinks((prevValues) => [...prevValues, { website: "", url: "" }]);
+  }
+
+  function handleRemoveEmptyInputPairs(e) {
+    e.preventDefault();
+    setSocialLinks((prevValues) =>
+      prevValues.filter((item) => item.website !== "" && item.url !== "")
+    );
+  }
+
+  const urlData = socialLinks.map((item, index) => (
+    <div key={index}>
+      <input
+        placeholder="Website"
+        value={item.website}
+        onChange={(e) => handleChangeWebsite(index, e.target.value)}
+      />
+      <input
+        placeholder="URL"
+        value={item.url}
+        onChange={(e) => handleChangeUrl(index, e.target.value)}
+      />
+    </div>
+  ));
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -104,12 +152,10 @@ export default function EditAdmin() {
           </label>
           <label>
             Social links
-            <input
-              placeholder="Social links"
-              value={socialLinks}
-              onChange={handleSocialChange}
-            />
+            {urlData}
           </label>
+          <button onClick={handleAddInputPair}>+</button>
+          <button onClick={handleRemoveEmptyInputPairs}>-</button>
           <label>
             About page
             <textarea
