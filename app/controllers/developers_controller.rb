@@ -25,6 +25,10 @@ class DevelopersController < ApplicationController
     def update
         dev = find_dev
         dev_finder = Developer.find_by(username: params[:username])
+        links = params[:social_links].map do |param|
+            { url: param[:url], website: param[:website] }
+          end
+        #   TODO: add data.url to url_validator 
         dev.tap do |u|
             if params[:username] == ""
                 render json: {error: "Please add username"}, status: :unprocessable_entity
@@ -35,10 +39,7 @@ class DevelopersController < ApplicationController
                 u.public_profile = params[:public_profile]
                 u.about = params[:about]
                 u.resume = params[:resume]
-                data = params[:social_links].map do |param|
-                    { url: param[:url], website: param[:website] }
-                  end
-                u.social_links = data
+                u.social_links = links
                 u.save(validate: false)
                 render json: dev, status: :accepted
             else 
