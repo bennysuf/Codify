@@ -7,9 +7,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const {setAdmin} = useContext(UserContext)
+  const { setAdmin } = useContext(UserContext);
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
   function handleUsername(e) {
     e.preventDefault();
@@ -33,7 +33,7 @@ export default function Login() {
       if (r.ok) {
         r.json().then((user) => {
           setAdmin(user);
-          navigate(`/admin`)
+          navigate(`/admin`);
           // navigate(`/admin/${user.username}`)
         });
       } else {
@@ -43,29 +43,43 @@ export default function Login() {
   }
 
   return (
-    <div className="input" style={{ marginTop: "10%" }}>
-      <input
-        type="text"
-        id="username"
-        placeholder="Username"
-        value={username}
-        onChange={handleUsername}
-      />
-      <br />
-      <input
-        type="password"
-        id="password"
-        placeholder="Password"
-        value={password}
-        onChange={handlePassword}
-      />
-      <br />
-      <button type="button" onClick={handleLogin}>
-        Login
-      </button>
-      <br />
-      <Link to="/signup">{"Signup"}</Link>
-      {<h4 key={errors}>{errors}</h4>}
-    </div>
+    <>
+      <nav>
+        <ul style={{ marginLeft: "3%" }}>
+          <li>
+            <strong>Codify</strong>
+          </li>
+        </ul>
+        <ul style={{ marginRight: "3%" }}>
+          <li key="home">
+            <a href="/home">Home</a>
+          </li>
+        </ul>
+      </nav>
+      <div className="input" style={{ marginTop: "10%" }}>
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          value={username}
+          onChange={handleUsername}
+        />
+        <br />
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          value={password}
+          onChange={handlePassword}
+        />
+        <br />
+        <button type="button" onClick={handleLogin}>
+          Login
+        </button>
+        <br />
+        <Link to="/signup">{"Signup"}</Link>
+        {<h4 key={errors}>{errors}</h4>}
+      </div>
+    </>
   );
 }

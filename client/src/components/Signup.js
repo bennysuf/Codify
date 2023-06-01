@@ -9,9 +9,9 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const {setAdmin} = useContext(UserContext);
+  const { setAdmin } = useContext(UserContext);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleUsername(e) {
     e.preventDefault();
@@ -44,9 +44,9 @@ export default function Signup() {
     }).then((r) => {
       if (r.ok) {
         r.json().then((user) => {
-            setAdmin(user);
-            navigate(`/admin/${user.username}`)
-        })
+          setAdmin(user);
+          navigate(`/admin/${user.username}`);
+        });
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
@@ -54,47 +54,61 @@ export default function Signup() {
   }
 
   return (
-    <div className="input" style={{ marginTop: "10%" }}>
-      <input
-        type="text"
-        id="username"
-        placeholder="Username"
-        value={username}
-        onChange={handleUsername}
-      />
-      <br />
-      <input
-        type="text"
-        id="email"
-        placeholder="email"
-        value={email}
-        onChange={handleEmail}
-      />
-      <br />
-      <input
-        type="password"
-        id="password"
-        placeholder="Password"
-        value={password}
-        onChange={handlePassword}
-      />
-      <br />
-      <input
-        type="password"
-        id="confirmation"
-        placeholder="confirmation"
-        value={confirmation}
-        onChange={handleConfirmation}
-      />
-      <br />
-      <button type="button" onClick={handleSignup}>
-        Signup
-      </button>
-      <br />
-      <Link to="/login">{"Login"}</Link>
-      {errors.map((err) => (
-        <h4 key={err}>{err}</h4>
-      ))}
-    </div>
+    <>
+      <nav>
+        <ul style={{ marginLeft: "3%" }}>
+          <li>
+            <strong>Codify</strong>
+          </li>
+        </ul>
+        <ul style={{ marginRight: "3%" }}>
+          <li key="home">
+            <a href="/home">Home</a>
+          </li>
+        </ul>
+      </nav>
+      <div className="input" style={{ marginTop: "10%" }}>
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          value={username}
+          onChange={handleUsername}
+        />
+        <br />
+        <input
+          type="text"
+          id="email"
+          placeholder="email"
+          value={email}
+          onChange={handleEmail}
+        />
+        <br />
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          value={password}
+          onChange={handlePassword}
+        />
+        <br />
+        <input
+          type="password"
+          id="confirmation"
+          placeholder="confirmation"
+          value={confirmation}
+          onChange={handleConfirmation}
+        />
+        <br />
+        <button type="button" onClick={handleSignup}>
+          Signup
+        </button>
+        <br />
+        <Link to="/login">{"Login"}</Link>
+        {errors.map((err) => (
+          <h4 key={err}>{err}</h4>
+        ))}
+      </div>
+    </>
   );
 }
