@@ -1,19 +1,16 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import NavBar from "./NavBar";
 
 export default function Home() {
-  const { devs } = useContext(UserContext);
-
-  let navigate = useNavigate();
+  const { devs, navigate } = useContext(UserContext);
 
   function handleDevSelect(dev) {
     navigate(`/developer?developers=${dev.username}`);
   }
 
   return (
-    <>
+    <div style={{marginTop: "3%"}}>
       <NavBar />
       <details role="list" className="input">
         <summary aria-haspopup="listbox">Find developers</summary>
@@ -27,6 +24,6 @@ export default function Home() {
           })}
         </ul>
       </details>
-    </>
+    </div>
   );
 }
