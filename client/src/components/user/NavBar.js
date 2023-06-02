@@ -1,11 +1,18 @@
-
+// import { useNavigate } from "react-router-dom"
 
 export default function NavBar() {
 
+  // const navigate = useNavigate()
+
+  // function handlePathChange() {
+  //   console.log("click")
+  //   navigate("/home")
+  // }
+
     return (
         <nav>
-        <ul style={{ marginLeft: "3%" }}>
-          <li>
+        <ul style={{ marginLeft: "5%" }}>
+          <li >
             <strong>Codify</strong>
           </li>
         </ul>
