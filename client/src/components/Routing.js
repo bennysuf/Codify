@@ -7,6 +7,7 @@ import NotFound from "./NotFound";
 import Logout from "./admin/Logout";
 import DevPage from "./user/DevPage";
 import AboutPage from "./user/AboutPage";
+import ContactForm from "./user/ContactForm";
 
 export default function Routing({ admin, currentDev }) {
   // ! when admin goes back a page, we get 404 page until manual reload
@@ -19,24 +20,21 @@ export default function Routing({ admin, currentDev }) {
       {admin ? (
         <>
           <Route path="/admin/*" element={<Admin />} />
-          <Route path="/home" element={<Home />} />{" "}
+          <Route path="/home" element={<Home />} />
           {/* //* incase Admin goes back a page */}
         </>
       ) : (
         <>
-          {/* <Route path="*" element={<NotFound />} /> */}
-          {/* <Route path="/admin/*" element={<NotFound />} /> */}
           <Route path="/home" element={<Home />} />
           {currentDev ? (
             <>
               {/* //* checks if developer exists */}
               <Route path="/developer/*" element={<DevPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactForm />} />
             </>
           ) : (
             <></>
-            // <Route path="*" element={<NotFound />} />
-            // <Route path="/developer/*" element={<NotFound />} />
           )}
         </>
       )}
