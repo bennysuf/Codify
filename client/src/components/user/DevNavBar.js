@@ -7,25 +7,46 @@ export default function DevNavBar() {
   const { username, resume, about, social_links } = currentDev[0];
   // const { about, resume } = profile;
 
-  // TODO: if current page, make <a> class="secondary" else ""
+  const path = window.location.pathname;
 
   return (
     <>
-      <nav aria-label="breadcrumb">
-        <ul style={{ marginLeft: "3%" }}>
+      <nav>
+      {/* <nav aria-label="breadcrumb"> */}
+        <ul style={{ marginLeft: "5%" }}>
+        <li >
+            <strong>Codify</strong>
+          </li>
+        </ul>
+        <ul style={{marginRight: "3%"}}>
           <li key="dev-page">
-            <a href={"/developer?developers=" + username}>{username}'s page</a>
+            <a
+              href={"/developer?developers=" + username}
+              className={path === "/developer" ? "secondary" : ""}
+            >
+              {username}'s page
+            </a>
             {/* // TODO: make username first letter capital */}
           </li>
           {about === "" ? (
             <></>
           ) : (
             <li key="about">
-              <a href={"/about?developers=" + username}>About</a>
+              <a
+                href={"/about?developers=" + username}
+                className={path === "/about" ? "secondary" : ""}
+              >
+                About
+              </a>
             </li>
           )}
           <li key="contact">
-            <a href={"/contact?developers=" + username}>Contact</a>
+            <a
+              href={"/contact?developers=" + username}
+              className={path === "/contact" ? "secondary" : ""}
+            >
+              Contact
+            </a>
           </li>
           {resume === "" ? (
             <></>
@@ -39,12 +60,12 @@ export default function DevNavBar() {
           <li key="home">
             <a href="/home">Home</a>
           </li>
-          {social_links === "" ? (
-            // TODO: after changing social_links column, change "" to []
+          {!social_links[0] ? (
             <></>
           ) : (
-            <li>
-              <details role="list" dir="rtl">
+            <li key="social" role="list" dir="rtl">
+              {/* li makes it a hover over instead of button*/}
+              {/* <details role="list" dir="rtl"> */}
                 <summary aria-haspopup="listbox" role="link">
                   Socials
                 </summary>
@@ -59,9 +80,8 @@ export default function DevNavBar() {
                     );
                   })}
                 </ul>
-              </details>
+              {/* </details> */}
             </li>
-            
           )}
         </ul>
       </nav>
