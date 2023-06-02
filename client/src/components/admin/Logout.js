@@ -20,7 +20,7 @@ export default function Logout() {
   return (
     <button
       onClick={handleLogout}
-      style={{ float: "right", marginTop: "10px", width: "20%" }}
+      style={{ float: "right", marginTop: "10px", width: "20%", marginRight: "5%" }}
     >
       Logout
     </button>
