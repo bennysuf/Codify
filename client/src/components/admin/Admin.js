@@ -29,8 +29,15 @@ export default function Admin() {
     
   // }
 
+  // useEffect(()=> {
+  //   // window.addEventListener('popstate', (event) => {
+  //     setReload("redo");
+  //     // alert("You message");
+  //   // });
+  // },[])
+
   return (
-    <>
+    <div style={{marginTop: "3%"}}>
       <Logout />
       <AdminNavBar />
       {/* <AdminNavBar profile={admin.profile} setPage={setPage} /> */}
@@ -59,6 +66,6 @@ export default function Admin() {
         <Route path="new-project" element={<NewProject />} />
         <Route path="projects-page/*" element={<ProjectsPage />} />
       </Routes>
-    </>
+    </div>
   );
 }
