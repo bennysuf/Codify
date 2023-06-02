@@ -10,6 +10,6 @@ export default function NotFound(){
     })
 
     return (
-        <h1>{loading}</h1>
+        <h1 style={{textAlign: "center", marginTop:"3%"}}>{loading}</h1>
     )
 }
