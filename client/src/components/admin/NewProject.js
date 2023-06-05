@@ -5,24 +5,12 @@ export default function NewProject() {
   const { projects, setProjects, navigate } = useContext(UserContext);
 
   const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState({ link: "", website: "" });
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState([]);
 
-  function handleTitleChange(e) {
-    e.preventDefault();
-    setTitle(e.target.value);
-  }
-
-  function handleUrlChange(e) {
-    e.preventDefault();
-    setUrl(e.target.value);
-  }
-
-  function handleDescriptionChange(e) {
-    e.preventDefault();
-    setDescription(e.target.value);
-  }
+  console.log("new project", url);
+  // ! state gets updated but upon reload, card comes back with no url
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -58,13 +46,32 @@ export default function NewProject() {
           <input
             placeholder="Title"
             value={title}
-            onChange={handleTitleChange}
+            onChange={(e) => setTitle(e.target.value)}
           />
-          <input placeholder="Url" value={url} onChange={handleUrlChange} />
+          <input
+            placeholder="Link"
+            value={url.link}
+            onChange={(e) =>
+              setUrl({
+                ...url,
+                link: e.target.value,
+              })
+            }
+          />
+          <input
+            placeholder="Website"
+            value={url.website}
+            onChange={(e) =>
+              setUrl({
+                ...url,
+                website: e.target.value,
+              })
+            }
+          />
           <textarea
             placeholder="Description"
             value={description}
-            onChange={handleDescriptionChange}
+            onChange={(e) => setDescription(e.target.value)}
             style={{ height: "100px" }}
           />
         </div>
