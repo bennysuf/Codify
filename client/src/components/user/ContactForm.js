@@ -1,12 +1,10 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../App";
-import DevNavBar from "./DevNavBar";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [message, setMessage] = useState("");
-  //   const [recipient, setRecipient] = useState("");
 
   const { currentDev } = useContext(UserContext);
 
@@ -25,9 +23,9 @@ export default function ContactForm() {
       developer_id: id,
       head: "heading",
       //   recipient: email,
+      // TODO: fix columns in backend based off of free mailers needs
     };
 
-    //   axios.post('/api/contact', formData)
     fetch("/contact_forms", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -43,7 +41,6 @@ export default function ContactForm() {
 
   return (
     <>
-      <DevNavBar />
       <form onSubmit={handleSubmit}>
         <div className="input">
           <input
@@ -66,12 +63,6 @@ export default function ContactForm() {
             placeholder="Message"
             required
           ></textarea>
-          {/* <input
-        type="text"
-        value={recipient}
-        onChange={(e) => setRecipient(e.target.value)}
-        placeholder="Recipient"
-    /> */}
         </div>
         <button className="button" type="submit">
           Submit
