@@ -16,19 +16,6 @@ export default function EditAdmin() {
   const [publicProfile, setPublicProfile] = useState(public_profile);
   const [errors, setErrors] = useState("");
 
-  function handleAboutChange(e) {
-    e.preventDefault();
-    setAboutPage(e.target.value);
-  }
-  function handleResumeChange(e) {
-    e.preventDefault();
-    setResumeUrl(e.target.value);
-  }
-  function handleUsernameChange(e) {
-    e.preventDefault();
-    setNewUsername(e.target.value);
-  }
-
   const update = {
     about: aboutPage,
     social_links: socialLinks,
@@ -38,8 +25,9 @@ export default function EditAdmin() {
   };
 
   function handleSubmit(e) {
-    setErrors("");
     e.preventDefault();
+
+    setErrors("");
 
     fetch(`/developers/${admin.id}`, {
       method: "PATCH",
@@ -139,7 +127,7 @@ export default function EditAdmin() {
             <input
               placeholder="username"
               value={newUsername}
-              onChange={handleUsernameChange}
+              onChange={(e) => setNewUsername(e.target.value)}
             />
           </label>
           <label>
@@ -147,7 +135,7 @@ export default function EditAdmin() {
             <input
               placeholder="Resume link"
               value={resumeUrl}
-              onChange={handleResumeChange}
+              onChange={(e) => setResumeUrl(e.target.value)}
             />
           </label>
           <label>
@@ -161,7 +149,7 @@ export default function EditAdmin() {
             <textarea
               placeholder="About page"
               value={aboutPage}
-              onChange={handleAboutChange}
+              onChange={(e) => setAboutPage(e.target.value)}
               style={{ height: "500px" }}
             />
           </label>
