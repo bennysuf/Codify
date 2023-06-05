@@ -32,7 +32,7 @@ export default function Login() {
 
   return (
     <>
-      <nav>
+      <nav style={{marginTop: "3%"}}>
         <ul style={{ marginLeft: "3%" }}>
           <li>
             <strong>Codify</strong>
