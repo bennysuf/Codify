@@ -15,7 +15,7 @@ export default function ProjectsPage() {
 
   const projectList = projects.map((project) => {
     return (
-      <div key={project.url}>
+      <div key={project.url.link}>
         <ProjectCard key={project.id} project={project} />
         <br />
         <button className="button" onClick={() => handleEdit(project)}>
