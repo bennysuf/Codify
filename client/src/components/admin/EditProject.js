@@ -17,19 +17,20 @@ export default function EditProject({ project }) {
   const [newDescription, setNewDescription] = useState(description);
   const [newUrl, setNewUrl] = useState(url);
 
-  function handleNewTitleChange(e) {
-    e.preventDefault();
-    setNewTitle(e.target.value);
+  console.log("projectUrl", newUrl);
+
+  function handleUrlChange(e){
+    setNewUrl({
+      ...newUrl,
+      link: e.target.value
+    })
   }
 
-  function handleNewDescriptionChange(e) {
-    e.preventDefault();
-    setNewDescription(e.target.value);
-  }
-
-  function handleNewUrlChange(e) {
-    e.preventDefault();
-    setNewUrl(e.target.value);
+  function handleWebChange(e){
+    setNewUrl({
+      ...newUrl,
+      website: e.target.value
+    })
   }
 
   function handleSubmit(e) {
@@ -76,17 +77,22 @@ export default function EditProject({ project }) {
           <input
             placeholder="Title"
             value={newTitle}
-            onChange={handleNewTitleChange}
+            onChange={(e) => setNewTitle(e.target.value)}
           />
           <input
-            placeholder="Url"
-            value={newUrl}
-            onChange={handleNewUrlChange}
+            placeholder="Link"
+            value={newUrl.link}
+            onChange={handleUrlChange}
+          />
+          <input
+            placeholder="Website"
+            value={newUrl.website}
+            onChange={handleWebChange}
           />
           <textarea
             placeholder="Description"
             value={newDescription}
-            onChange={handleNewDescriptionChange}
+            onChange={(e)=> setNewDescription(e.target.value)}
             style={{ height: "100px" }}
           />
         </div>
