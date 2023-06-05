@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserContext } from "./App";
 
 export default function Login() {
@@ -7,19 +7,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const { setAdmin } = useContext(UserContext);
-
-  let navigate = useNavigate();
-
-  function handleUsername(e) {
-    e.preventDefault();
-    setUsername(e.target.value);
-  }
-
-  function handlePassword(e) {
-    e.preventDefault();
-    setPassword(e.target.value);
-  }
+  const { setAdmin, navigate } = useContext(UserContext);
 
   function handleLogin() {
     fetch("/login", {
@@ -59,18 +47,16 @@ export default function Login() {
       <div className="input" style={{ marginTop: "10%" }}>
         <input
           type="text"
-          id="username"
           placeholder="Username"
           value={username}
-          onChange={handleUsername}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <br />
         <input
           type="password"
-          id="password"
           placeholder="Password"
           value={password}
-          onChange={handlePassword}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <br />
         <button type="button" onClick={handleLogin}>
