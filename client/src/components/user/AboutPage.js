@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../App";
-import DevNavBar from "./DevNavBar";
 
 export default function AboutPage() {
   // const [num, setNum] = useState(100)
@@ -20,7 +19,6 @@ export default function AboutPage() {
 
   return (
     <>
-      <DevNavBar />
       <article>
         <header>About Me</header>
         <textarea defaultValue={about} style={{ height: `500px` }}/>
