@@ -16,6 +16,7 @@ function App() {
 
   const navigate = useNavigate();
 
+  // TODO: figure out how to reload component when admin goes back a page
   useEffect(() => {
     fetch("/admin").then((r) => {
       if (r.ok) {
@@ -24,7 +25,6 @@ function App() {
             setAdmin(user);
             setProjects(user.projects);
           }
-          //TODO: remove setProjects
         });
       }
     });
@@ -37,9 +37,6 @@ function App() {
   }, []);
 
   const currentDev = devs.filter((dev) => dev.username === param);
-  // const currentDev = devs.filter(
-  //   (dev) => dev.username === param && dev.public_profile === true
-  // );
 
   return (
     <UserContext.Provider
@@ -54,7 +51,7 @@ function App() {
         navigate,
       }}
     >
-      <Routing admin={admin} currentDev={currentDev[0]}/>
+      <Routing admin={admin} currentDev={currentDev[0]} />
     </UserContext.Provider>
   );
 }
