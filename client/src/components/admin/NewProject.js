@@ -5,18 +5,17 @@ export default function NewProject() {
   const { projects, setProjects, navigate } = useContext(UserContext);
 
   const [title, setTitle] = useState("");
-  const [url, setUrl] = useState({ link: "", website: "" });
+  const [url, setUrl] = useState("");
+  const [webText, setWebText] = useState("");
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState([]);
-
-  console.log("new project", url);
-  // ! state gets updated but upon reload, card comes back with no url
 
   function handleSubmit(e) {
     e.preventDefault();
     const created = {
       title: title,
       url: url,
+      linkText: webText,
       description: description,
     };
     fetch("/projects", {
@@ -49,24 +48,14 @@ export default function NewProject() {
             onChange={(e) => setTitle(e.target.value)}
           />
           <input
-            placeholder="Link"
-            value={url.link}
-            onChange={(e) =>
-              setUrl({
-                ...url,
-                link: e.target.value,
-              })
-            }
+            placeholder="Url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
           />
           <input
             placeholder="Website"
-            value={url.website}
-            onChange={(e) =>
-              setUrl({
-                ...url,
-                website: e.target.value,
-              })
-            }
+            value={webText}
+            onChange={(e) => setWebText(e.target.value)}
           />
           <textarea
             placeholder="Description"
@@ -88,5 +77,3 @@ export default function NewProject() {
     </>
   );
 }
-
-//! http://localhost:4000/admin/index.css 404 (Not Found)

@@ -11,33 +11,19 @@ export default function EditProject({ project }) {
     (project) => project.id === parseInt(projectId)
   );
 
-  const { description, title, url } = currentProject[0];
+  const { description, title, url, linkText } = currentProject[0];
 
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
   const [newUrl, setNewUrl] = useState(url);
-
-  console.log("projectUrl", newUrl);
-
-  function handleUrlChange(e){
-    setNewUrl({
-      ...newUrl,
-      link: e.target.value
-    })
-  }
-
-  function handleWebChange(e){
-    setNewUrl({
-      ...newUrl,
-      website: e.target.value
-    })
-  }
+  const [newWebText, setNewWebText] = useState(linkText ? linkText : "");
 
   function handleSubmit(e) {
     e.preventDefault();
     const update = {
       title: newTitle,
       url: newUrl,
+      linkText: newWebText,
       description: newDescription,
     };
     fetch(`/projects/${projectId}`, {
@@ -81,18 +67,18 @@ export default function EditProject({ project }) {
           />
           <input
             placeholder="Link"
-            value={newUrl.link}
-            onChange={handleUrlChange}
+            value={newUrl}
+            onChange={(e) => setNewUrl(e.target.value)}
           />
           <input
             placeholder="Website"
-            value={newUrl.website}
-            onChange={handleWebChange}
+            value={newWebText}
+            onChange={(e) => setNewWebText(e.target.value)}
           />
           <textarea
             placeholder="Description"
             value={newDescription}
-            onChange={(e)=> setNewDescription(e.target.value)}
+            onChange={(e) => setNewDescription(e.target.value)}
             style={{ height: "100px" }}
           />
         </div>
