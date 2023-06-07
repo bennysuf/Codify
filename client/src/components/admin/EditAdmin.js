@@ -4,30 +4,41 @@ import { UserContext } from "../App";
 export default function EditAdmin() {
   const { admin, navigate, setAdmin, devs, setDevs } = useContext(UserContext);
 
-  const { username, public_profile, resume, about, social_links } = admin;
-
-  // start social_links column with empty object, then frontend will "map" through it.
-  // TODO: change default value of social_link to an empty array
+  const { username, public_profile, resume, about, social_link } = admin;
 
   const [aboutPage, setAboutPage] = useState(about);
   const [resumeUrl, setResumeUrl] = useState(resume);
-  const [socialLinks, setSocialLinks] = useState(social_links);
+  const [socialLinks, setSocialLinks] = useState(social_link);
+  const [selectedKey, setSelectedKey] = useState("");
   const [newUsername, setNewUsername] = useState(username);
   const [publicProfile, setPublicProfile] = useState(public_profile);
   const [errors, setErrors] = useState("");
 
-  const update = {
-    about: aboutPage,
-    social_links: socialLinks,
-    resume: resumeUrl,
-    username: newUsername,
-    public_profile: publicProfile,
+  console.log("links", socialLinks);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setSocialLinks((prevSocialMedia) => ({
+      ...prevSocialMedia,
+      [name]: value,
+    }));
+  };
+
+  const handleDropdownChange = (event) => {
+    setSelectedKey(event.target.value);
   };
 
   function handleSubmit(e) {
     e.preventDefault();
 
     setErrors("");
+
+    const update = {
+      about: aboutPage,
+      resume: resumeUrl,
+      username: newUsername,
+      public_profile: publicProfile,
+    };
 
     fetch(`/developers/${admin.id}`, {
       method: "PATCH",
@@ -54,58 +65,10 @@ export default function EditAdmin() {
     });
   }
 
-  function handleChangeWebsite(index, newWebsite) {
-    setSocialLinks((prevValues) => {
-      const updatedValues = [...prevValues];
-      updatedValues[index] = {
-        ...updatedValues[index],
-        website: newWebsite,
-      };
-      return updatedValues;
-    });
-  }
-
-  function handleChangeUrl(index, newUrl) {
-    setSocialLinks((prevValues) => {
-      const updatedValues = [...prevValues];
-      updatedValues[index] = {
-        ...updatedValues[index],
-        url: newUrl,
-      };
-      return updatedValues;
-    });
-  }
-
-  function handleAddInputPair(e) {
-    e.preventDefault();
-    setSocialLinks((prevValues) => [...prevValues, { website: "", url: "" }]);
-  }
-
-  function handleRemoveEmptyInputPairs(e) {
-    e.preventDefault();
-    setSocialLinks((prevValues) =>
-      prevValues.filter((item) => item.website !== "" && item.url !== "")
-    );
-  }
-
-  const urlData = socialLinks.map((item, index) => (
-    <div key={index}>
-      <input
-        placeholder="Website"
-        value={item.website}
-        onChange={(e) => handleChangeWebsite(index, e.target.value)}
-      />
-      <input
-        placeholder="URL"
-        value={item.url}
-        onChange={(e) => handleChangeUrl(index, e.target.value)}
-      />
-    </div>
-  ));
-
   return (
     <>
       <form onSubmit={handleSubmit}>
+        {/* <div class="grid"> */}
         <div className="input">
           <br />
           <label style={{ marginLeft: "3%", width: "fit-content" }}>
@@ -140,10 +103,23 @@ export default function EditAdmin() {
           </label>
           <label>
             Social links
-            {urlData}
+            <select value={selectedKey} onChange={handleDropdownChange}>
+              <option value="">Select a social media</option>
+              {Object.keys(socialLinks).map((key) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
+              ))}
+            </select>
+            {selectedKey && (
+              <input
+                placeholder={selectedKey}
+                name={selectedKey}
+                value={socialLinks[selectedKey]}
+                onChange={handleChange}
+              />
+            )}
           </label>
-          <button onClick={handleAddInputPair}>+</button>
-          <button onClick={handleRemoveEmptyInputPairs}>-</button>
           <label>
             About page
             <textarea
