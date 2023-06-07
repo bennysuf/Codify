@@ -25,6 +25,7 @@ export default function NewProject() {
     }).then((r) => {
       if (r.ok) {
         r.json().then(() => setProjects([...projects, created]));
+        navigate("/admin/projects-page");
       } else {
         r.json().then((err) => {
           const arr = [];
@@ -34,12 +35,16 @@ export default function NewProject() {
           setErrors(arr);
         });
       }
-      navigate("/admin/projects-page");
     });
   }
 
   return (
     <>
+      {errors.map((err) => (
+        <h5 className="input" key={err}>
+          {err}
+        </h5>
+      ))}
       <form onSubmit={handleSubmit}>
         <div className="input">
           <input
@@ -68,11 +73,6 @@ export default function NewProject() {
           Submit
         </button>
         <br />
-        {errors.map((err) => (
-          <h5 className="input" key={err}>
-            {err}
-          </h5>
-        ))}
       </form>
     </>
   );

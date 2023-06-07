@@ -17,15 +17,18 @@ export default function EditProject({ project }) {
   const [newDescription, setNewDescription] = useState(description);
   const [newUrl, setNewUrl] = useState(url);
   const [newWebText, setNewWebText] = useState(linkText ? linkText : "");
+  const [errors, setErrors] = useState([]);
 
   function handleSubmit(e) {
     e.preventDefault();
+
     const update = {
       title: newTitle,
       url: newUrl,
       linkText: newWebText,
       description: newDescription,
     };
+
     fetch(`/projects/${projectId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -38,6 +41,14 @@ export default function EditProject({ project }) {
           });
           setProjects(updated);
           navigate("/admin/projects-page");
+        });
+      } else {
+        r.json().then((err) => {
+          const arr = [];
+          for (const key in err.errors) {
+            arr.push(`${key}: ${err.errors[key]}`);
+          }
+          setErrors(arr);
         });
       }
     });
@@ -58,6 +69,11 @@ export default function EditProject({ project }) {
   return (
     <>
       <h3>Edit projects page</h3>
+      {errors.map((err) => (
+        <h5 className="input" key={err}>
+          {err}
+        </h5>
+      ))}
       <form onSubmit={handleSubmit}>
         <div className="input">
           <input
