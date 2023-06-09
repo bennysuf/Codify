@@ -1,10 +1,21 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../App";
+import { Link } from "react-router-dom";
 
 export default function DevNavBar() {
   const { currentDev } = useContext(UserContext);
 
-  const { username, resume, about, social_links, projects } = currentDev[0];
+  const { username, resume, about, social_link, projects } = currentDev[0];
+
+  const [socialLinks, setSocialLinks] = useState(false);
+
+  useEffect(() => {
+    const obj = Object.values(social_link).filter((value) => value !== "");
+
+    if (obj[0]) {
+      setSocialLinks(true);
+    }
+  }, [social_link]);
 
   const path = window.location.pathname;
 
@@ -19,80 +30,75 @@ export default function DevNavBar() {
         </ul>
         <ul style={{ marginRight: "3%" }}>
           <li key="dev-page">
-            <a
-              href={"/developer?developers=" + username}
+            <Link
+              to={"/developer?developers=" + username}
               className={path === "/developer" ? "secondary" : ""}
             >
               {username}'s page
-            </a>
+            </Link>
             {/* // TODO: make username first letter capital */}
           </li>
           {about === "" ? (
             <></>
           ) : (
             <li key="about">
-              <a
-                href={"/developer/about?developers=" + username}
+              <Link
+                to={"/developer/about?developers=" + username}
                 className={path === "/developer/about" ? "secondary" : ""}
               >
                 About
-              </a>
+              </Link>
             </li>
           )}
           {!projects[0] ? (
             <></>
           ) : (
             <li key="projects">
-              <a
-                href={"/developer/projects?developers=" + username}
+              <Link
+                to={"/developer/projects?developers=" + username}
                 className={path === "/developer/projects" ? "secondary" : ""}
               >
                 Projects
-              </a>
+              </Link>
             </li>
           )}
-          <li key="contact">
-            <a
-              href={"/developer/contact?developers=" + username}
-              className={path === "/developer/contact" ? "secondary" : ""}
-            >
-              Contact
-            </a>
-          </li>
           {resume === "" ? (
             <></>
           ) : (
             <li key="resume">
-              <a href={"https://" + resume} target="_blank" rel="noreferrer">
+              <Link to={"https://" + resume} target="_blank" rel="noreferrer">
                 Resume
-              </a>
+              </Link>
             </li>
           )}
           <li key="home">
-            <a href="/home">Home</a>
+            <Link to="/home">Home</Link>
           </li>
-          {!social_links[0] ? (
-            <></>
-          ) : (
+          {socialLinks ? (
             <li key="social" role="list" dir="rtl">
-              {/* li makes it a hover over instead of button*/}
-              {/* <details role="list" dir="rtl"> */}
               <summary aria-haspopup="listbox" role="link">
                 Socials
               </summary>
               <ul role="listbox">
-                {social_links.map((link) => {
-                  const { url, website } = link;
-                  return (
-                    <>
-                      <a href={"https://" + url}>{website}</a>
-                      {/*// TODO: add styling */}
-                    </>
-                  );
+                {Object.entries(social_link).map((link) => {
+                  if (link[1] !== "") {
+                    return (
+                      <Link
+                        key={link[0]}
+                        to={"https://" + link[1]}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {link[0]}
+                        {/* // TODO: styling */}
+                      </Link>
+                    );
+                  }
                 })}
               </ul>
-              {/* </details> */}
             </li>
+          ) : (
+            <></>
           )}
         </ul>
       </nav>
