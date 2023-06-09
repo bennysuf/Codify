@@ -6,36 +6,24 @@ import Admin from "./admin/Admin";
 import NotFound from "./NotFound";
 import Logout from "./admin/Logout";
 import DevPage from "./user/DevPage";
+import Footer from "./Footer";
+import ContactForm from "./ContactForm";
 
 export default function Routing({ admin, currentDev }) {
-  // ! when admin goes back a page, we get 404 page until manual reload
 
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/logout" element={<Logout />} />
-      <Route path="/signup" element={<Signup />} />
-      {admin ? (
-        // for admin access
-        <>
-          <Route path="/admin/*" element={<Admin />} />
-          <Route path="/home" element={<Home />} />
-          {/* ^ incase Admin goes back a page */}
-        </>
-      ) : (
-        <>
-          <Route path="/home" element={<Home />} />
-          {currentDev ? (
-            // for user access to developer pages
-            <>
-              <Route path="/developer/*" element={<DevPage />} />
-            </>
-          ) : (
-            <></>
-          )}
-        </>
-      )}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  );
+    <>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/home" element={<Home />} />
+        {admin ?  <Route path="/admin/*" element={<Admin />} /> : <></>}
+        {currentDev ? <Route path="/developer/*" element={<DevPage />} /> : <></>}
+        <Route path="/contact" element={<ContactForm />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </>
+    );
 }
