@@ -12,9 +12,7 @@ export default function EditAdmin() {
   const [selectedKey, setSelectedKey] = useState("");
   const [newUsername, setNewUsername] = useState(username);
   const [publicProfile, setPublicProfile] = useState(public_profile);
-  const [errors, setErrors] = useState("");
-
-  console.log("links", socialLinks);
+  const [errors, setErrors] = useState([]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -31,13 +29,14 @@ export default function EditAdmin() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    setErrors("");
+    setErrors([]);
 
     const update = {
       about: aboutPage,
       resume: resumeUrl,
       username: newUsername,
       public_profile: publicProfile,
+      social_links: socialLinks,
     };
 
     fetch(`/developers/${admin.id}`, {
@@ -58,7 +57,15 @@ export default function EditAdmin() {
         navigate("/admin");
       } else {
         r.json().then((err) => {
-          setErrors(err.error);
+          const arr = [];
+          if (err.error) {
+            arr.push(`${err.error}`);
+          } else {
+            for (const key in err.errors) {
+              arr.push(`${key}: ${err.errors[key]}`);
+            }
+          }
+          setErrors(arr);
           window.scrollTo(0, 0);
         });
       }
@@ -67,6 +74,12 @@ export default function EditAdmin() {
 
   return (
     <>
+      <div className="input">
+        <br />
+        {errors.map((err) => (
+          <h3>{err}</h3>
+        ))}
+      </div>
       <form onSubmit={handleSubmit}>
         {/* <div class="grid"> */}
         <div className="input">
@@ -84,7 +97,6 @@ export default function EditAdmin() {
             Public profile {publicProfile ? "ON" : "OFF"}
           </label>
           <br />
-          <h3 style={{ marginLeft: "3%" }}>{errors}</h3>
           <label>
             Username
             <input
