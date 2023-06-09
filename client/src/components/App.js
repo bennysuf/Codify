@@ -15,8 +15,7 @@ function App() {
   const param = searchParams.get("developers");
 
   const navigate = useNavigate();
-
-  // TODO: figure out how to reload component when admin goes back a page
+  
   useEffect(() => {
     fetch("/admin").then((r) => {
       if (r.ok) {
