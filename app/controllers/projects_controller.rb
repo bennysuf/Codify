@@ -3,7 +3,6 @@ class ProjectsController < ApplicationController
     
     def create
         dev = find_dev
-        # dev = Developer.first
         project = dev.projects.create!(project_params)
         render json: project, status: :created
     end
@@ -34,7 +33,7 @@ class ProjectsController < ApplicationController
     private
 
     def project_params
-        params.require(:project).permit(:title, :url, :description)
+        params.require(:project).permit(:title, :url, :description, :linkText)
     end
 
 end
