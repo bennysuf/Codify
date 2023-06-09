@@ -45,7 +45,7 @@ export default function Signup() {
       if (r.ok) {
         r.json().then((user) => {
           setAdmin(user);
-          navigate(`/admin/${user.username}`);
+          navigate(`/admin/edit-admin`);
         });
       } else {
         r.json().then((err) => setErrors(err.errors));
@@ -63,7 +63,7 @@ export default function Signup() {
         </ul>
         <ul style={{ marginRight: "3%" }}>
           <li key="home">
-            <a href="/home">Home</a>
+            <Link to="/home">Home</Link>
           </li>
         </ul>
       </nav>
