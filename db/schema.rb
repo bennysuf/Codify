@@ -10,19 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_12_160246) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_004519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "contact_forms", force: :cascade do |t|
-    t.bigint "developer_id", null: false
     t.string "email"
     t.string "name"
-    t.string "head"
-    t.text "body"
+    t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["developer_id"], name: "index_contact_forms_on_developer_id"
   end
 
   create_table "dev_projects", force: :cascade do |t|
@@ -39,7 +36,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_12_160246) do
     t.string "password_digest"
     t.boolean "public_profile", default: false
     t.text "about", default: ""
-    t.text "social_links", default: ""
     t.string "resume", default: ""
     t.string "email"
     t.datetime "created_at", null: false
@@ -49,12 +45,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_12_160246) do
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.string "url"
+    t.string "linkText"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "contact_forms", "developers"
+  create_table "social_links", force: :cascade do |t|
+    t.string "twitter", default: ""
+    t.string "facebook", default: ""
+    t.string "linkedin", default: ""
+    t.string "instagram", default: ""
+    t.string "github", default: ""
+    t.string "youtube", default: ""
+    t.string "blog", default: ""
+    t.bigint "developer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["developer_id"], name: "index_social_links_on_developer_id"
+  end
+
   add_foreign_key "dev_projects", "developers"
   add_foreign_key "dev_projects", "projects"
+  add_foreign_key "social_links", "developers"
 end
