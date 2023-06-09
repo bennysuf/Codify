@@ -22,7 +22,6 @@ export default function Login() {
         r.json().then((user) => {
           setAdmin(user);
           navigate(`/admin`);
-          // navigate(`/admin/${user.username}`)
         });
       } else {
         r.json().then((err) => setErrors(err.error));
@@ -32,7 +31,7 @@ export default function Login() {
 
   return (
     <>
-      <nav style={{marginTop: "3%"}}>
+      <nav style={{ marginTop: "3%" }}>
         <ul style={{ marginLeft: "3%" }}>
           <li>
             <strong>Codify</strong>
@@ -40,7 +39,7 @@ export default function Login() {
         </ul>
         <ul style={{ marginRight: "3%" }}>
           <li key="home">
-            <a href="/home">Home</a>
+            <Link to="/home">Home</Link>
           </li>
         </ul>
       </nav>
