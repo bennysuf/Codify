@@ -2,8 +2,8 @@ class DevelopersController < ApplicationController
     skip_before_action :authorize, only: [:index, :show, :create, :update, :destroy]
 
     def create
-        byebug
         dev = Developer.create(dev_params)
+        SocialLink.create(developer_id: dev.id)
         if dev.valid?
             session[:dev_id] = dev.id
             render json: dev, status: :created
@@ -14,6 +14,7 @@ class DevelopersController < ApplicationController
  
     def show
         dev = find_dev
+        # dev = Developer.find_by(id: params[:id])
         render json: dev, status: :ok
     end
 
@@ -24,22 +25,29 @@ class DevelopersController < ApplicationController
 
     def update
         dev = find_dev
+        # dev = Developer.find_by(id: params[:id])
+        links = params[:social_links]
         dev_finder = Developer.find_by(username: params[:username])
-        links = params[:social_links].map do |param|
-            { url: param[:url], website: param[:website] }
-          end
-        #   TODO: add data.url to url_validator 
+        dev.social_link.update!(
+            # TODO: add method that removes "https://" or "http://" or "www." with gsub("https")
+            blog: links[:blog],
+            github: links[:github],
+            twitter: links[:twitter],
+            youtube: links[:youtube],
+            facebook: links[:facebook],
+            linkedin: links[:linkedin],
+            instagram: links[:instagram],
+            )
         dev.tap do |u|
             if params[:username] == ""
                 render json: {error: "Please add username"}, status: :unprocessable_entity
             elsif dev_finder != nil && dev_finder.username != dev.username
                 render json: {error: "Username already exists"}, status: :unprocessable_entity
-            elsif url_validator(params[:resume])
+            elsif params[:resume] == "" || url_validator(params[:resume])
                 u.username = params[:username]
                 u.public_profile = params[:public_profile]
                 u.about = params[:about]
                 u.resume = params[:resume]
-                u.social_links = links
                 u.save(validate: false)
                 render json: dev, status: :accepted
             else 
@@ -63,5 +71,6 @@ class DevelopersController < ApplicationController
     def dev_params
         params.permit(:username, :password, :password_confirmation, :email, :public_profile, :about, :resume, :social_links)
     end
-    
 end
+
+# t.split(", ")[0].gsub("\"","").gsub("{:","").gsub("}","").gsub(":","").split("=>")
