@@ -5,7 +5,6 @@ class CreateDevelopers < ActiveRecord::Migration[7.0]
       t.string :password_digest
       t.boolean :public_profile, :default => false
       t.text :about, :default => ""
-      t.text :social_links, :default => ""
       t.string :resume, :default => ""
       t.string :email
 
