@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function AdminNavBar() {
   const path = window.location.pathname;
 
@@ -11,33 +13,33 @@ export default function AdminNavBar() {
         </ul>
         <ul style={{marginRight: "3%"}}>
         <li key="admin">
-          <a href="/admin" className={path === "/admin" ? "secondary" : ""}>
+          <Link to="/admin" className={path === "/admin" ? "secondary" : ""}>
             Home
-          </a>
+          </Link>
         </li>
         <li key="projects-page">
-          <a
-            href="/admin/projects-page"
+          <Link
+            to="/admin/projects-page"
             className={path === "/admin/projects-page" ? "secondary" : ""}
           >
             Projects
-          </a>
+          </Link>
         </li>
         <li key="new-project">
-          <a
-            href="/admin/new-project"
+          <Link
+            to="/admin/new-project"
             className={path === "/admin/new-project" ? "secondary" : ""}
           >
             New project
-          </a>
+          </Link>
         </li>
         <li key="about">
-          <a
-            href={"/admin/edit-admin"}
+          <Link
+            to={"/admin/edit-admin"}
             className={path === "/admin/edit-admin" ? "secondary" : ""}
           >
             Edit profile
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
