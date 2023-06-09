@@ -2,11 +2,10 @@ class Project < ApplicationRecord
     has_many :dev_projects, dependent: :destroy
     has_many :developers, through: :dev_projects
 
-    serialize :url, Hash
-
     validates :title, presence: true
     validates :description, presence: true
-    # validates_format_of :url, :with => /\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i
+    validates :linkText, presence: true
+    validates_format_of :url, :with => /\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i, presence: true
     # Valid ones:
     # 'www.crowdint.com'
     # 'crowdint.com'
