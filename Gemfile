@@ -21,7 +21,18 @@ gem "puma", "~> 5.0"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
-gem 'mail_form'
+gem "net-http"
+
+# gem 'dotenv-rails', groups: [:development, :test]
+gem 'figaro'
+
+# gem 'mail_form'
+gem "letter_opener", group: :development
+
+# Great for password recovery and email confirmation and more. Has to replace bcrypt.
+# gem 'devise'
+
+gem 'bootstrap-email'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
