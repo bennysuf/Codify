@@ -2,16 +2,7 @@ class SessionsController < ApplicationController
     skip_before_action :authorize, only: [:create, :destroy]
 
     def create
-        #TODO: just have username or password, not either or 
         dev = Developer.find_by(username: params[:username])
-        # if !dev
-        #     render json: { error: "Username non existant" }, status: :unauthorized
-        # elsif !dev&.authenticate(params[:password])
-        #     render json: { error: "Invalid password" }, status: :unauthorized
-        # elsif dev&.authenticate(params[:password]) 
-        #     session[:dev_id] = dev.id
-        #     render json: dev, status: :created
-        # end
         if dev&.authenticate(params[:password])
             session[:dev_id] = dev.id
             render json: dev, status: :created
