@@ -14,14 +14,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_004519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "contact_forms", force: :cascade do |t|
-    t.string "email"
-    t.string "name"
-    t.text "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "dev_projects", force: :cascade do |t|
     t.bigint "developer_id", null: false
     t.bigint "project_id", null: false
@@ -37,7 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_004519) do
     t.boolean "public_profile", default: false
     t.text "about", default: ""
     t.string "resume", default: ""
-    t.string "email"
+    t.string "email", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -6,7 +6,7 @@ class CreateDevelopers < ActiveRecord::Migration[7.0]
       t.boolean :public_profile, :default => false
       t.text :about, :default => ""
       t.string :resume, :default => ""
-      t.string :email
+      t.string :email, null: false, default: ""
 
       t.timestamps
     end
