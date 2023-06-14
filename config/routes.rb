@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # resources :contact_forms
+  resources :contact_forms, only: [:new, :create ]
   resources :dev_projects
   resources :projects
   resources :developers
