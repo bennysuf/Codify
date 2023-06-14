@@ -40,6 +40,7 @@ export default function Signup() {
         username: username,
         password: password,
         password_confirmation: confirmation,
+        email: email,
       }),
     }).then((r) => {
       if (r.ok) {
