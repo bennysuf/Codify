@@ -1,13 +1,16 @@
 class SocialLink < ApplicationRecord
     belongs_to :developer
 
-    validates :blog, format: { with: /\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i, allow_blank: true, message: "invalid url " }
-    validates :github, format: { with: /\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i, allow_blank: true, message: "invalid url " }
-    validates :youtube, format: { with: /\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i, allow_blank: true, message: "invalid url " }
-    validates :twitter, format: { with: /\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i, allow_blank: true, message: "invalid url " }
-    validates :linkedin, format: { with: /\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i, allow_blank: true, message: "invalid url " }
-    validates :facebook, format: { with: /\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i, allow_blank: true, message: "invalid url " }
-    validates :instagram, format: { with: /\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i, allow_blank: true, message: "invalid url " }
+    url = /\A(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\Z/i
+    error = "Invalid url"
+
+    validates :blog, format: { with: url, allow_blank: true, message: error}
+    validates :github, format: { with: url, allow_blank: true, message: error}
+    validates :youtube, format: { with: url, allow_blank: true, message: error}
+    validates :twitter, format: { with: url, allow_blank: true, message: error}
+    validates :linkedin, format: { with: url, allow_blank: true, message: error}
+    validates :facebook, format: { with: url, allow_blank: true, message: error}
+    validates :instagram, format: { with: url, allow_blank: true, message: error}
     # Valid ones:
     # 'www.crowdint.com'
     # 'crowdint.com'
