@@ -1,10 +1,11 @@
 class Developer < ApplicationRecord
     has_many :dev_projects
     has_many :projects, through: :dev_projects
-    has_many :contact_forms
-    has_one :social_link
+    has_one :social_link, dependent: :destroy
 
     has_secure_password
+
+    after_create :send_welcome_email
 
     validates :password, presence: true
     validates :password_confirmation, presence: true
@@ -15,5 +16,9 @@ class Developer < ApplicationRecord
     # validates :email, email: {mode: :strict, require_fqdn: true}
     # validates :email, presence: true, email: true
     # TODO: validate email
+
+    def send_welcome_email
+        DeveloperMailer.welcome(self).deliver_now  
+    end
 
 end
