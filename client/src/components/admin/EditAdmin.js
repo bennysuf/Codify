@@ -77,7 +77,7 @@ export default function EditAdmin() {
       <div className="input">
         <br />
         {errors.map((err) => (
-          <h3>{err}</h3>
+          <h3 key={err}>{err}</h3>
         ))}
       </div>
       <form onSubmit={handleSubmit}>
