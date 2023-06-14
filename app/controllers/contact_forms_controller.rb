@@ -1,2 +1,0 @@
-class ContactFormsController < ApplicationController
-end
