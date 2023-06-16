@@ -22,7 +22,6 @@ export default function DevNavBar() {
   return (
     <>
       <nav>
-        {/* <nav aria-label="breadcrumb"> */}
         <ul style={{ marginLeft: "5%" }}>
           <li>
             <strong>Codify</strong>
@@ -36,7 +35,6 @@ export default function DevNavBar() {
             >
               {username}'s page
             </Link>
-            {/* // TODO: make username first letter capital */}
           </li>
           {about === "" ? (
             <></>
@@ -81,19 +79,19 @@ export default function DevNavBar() {
               </summary>
               <ul role="listbox">
                 {Object.entries(social_link).map((link) => {
-                  if (link[1] !== "") {
-                    return (
-                      <Link
-                        key={link[0]}
-                        to={"https://" + link[1]}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {link[0]}
-                        {/* // TODO: styling */}
-                      </Link>
-                    );
-                  }
+                  return link[1] ? (
+                    <Link
+                      key={link[0]}
+                      to={"https://" + link[1]}
+                      style={{ marginBottom: "2px", margin: "2px" }}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {link[0]}
+                    </Link>
+                  ) : (
+                    ""
+                  );
                 })}
               </ul>
             </li>
