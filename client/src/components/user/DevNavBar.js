@@ -69,9 +69,6 @@ export default function DevNavBar() {
               </Link>
             </li>
           )}
-          <li key="home">
-            <Link to="/home">Home</Link>
-          </li>
           {socialLinks ? (
             <li key="social" role="list" dir="rtl">
               <summary aria-haspopup="listbox" role="link">
@@ -98,6 +95,9 @@ export default function DevNavBar() {
           ) : (
             <></>
           )}
+          <li key="home">
+            <Link to="/home">Home</Link>
+          </li>
         </ul>
       </nav>
     </>
