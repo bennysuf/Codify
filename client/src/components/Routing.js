@@ -6,7 +6,6 @@ import Admin from "./admin/Admin";
 import NotFound from "./NotFound";
 import Logout from "./admin/Logout";
 import DevPage from "./user/DevPage";
-import ContactForm from "./ContactForm";
 
 export default function Routing({ admin, currentDev }) {
 
@@ -18,7 +17,6 @@ export default function Routing({ admin, currentDev }) {
         <Route path="/home" element={<Home />} />
         {admin ?  <Route path="/admin/*" element={<Admin />} /> : <></>}
         {currentDev ? <Route path="/developer/*" element={<DevPage />} /> : <></>}
-        <Route path="/contact" element={<ContactForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     );
