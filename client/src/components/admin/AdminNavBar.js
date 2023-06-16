@@ -5,7 +5,6 @@ export default function AdminNavBar() {
 
   return (
     <nav>
-    {/* <nav aria-label="breadcrumb"> */}
       <ul style={{ marginLeft: "5%" }}>
       <li >
             <strong>Codify</strong>
