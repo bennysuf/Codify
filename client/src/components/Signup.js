@@ -64,7 +64,7 @@ export default function Signup() {
         </ul>
         <ul style={{ marginRight: "3%" }}>
           <li key="home">
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
           </li>
         </ul>
       </nav>

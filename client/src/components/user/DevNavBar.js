@@ -96,7 +96,7 @@ export default function DevNavBar() {
             <></>
           )}
           <li key="home">
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
           </li>
         </ul>
       </nav>

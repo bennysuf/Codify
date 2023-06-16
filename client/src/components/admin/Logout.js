@@ -12,7 +12,7 @@ export default function Logout() {
       method: "DELETE",
     }).then(() => {
       setAdmin(null);
-      navigate("/home");
+      navigate("/");
       setProjects([])
     });
   }
