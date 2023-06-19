@@ -46,6 +46,7 @@ export default function Signup() {
       // if (r.ok) {
         r.json().then((user) => {
           console.log("signup", user)
+          debugger
           setAdmin(user);
           navigate(`/admin/edit-admin`);
         });
