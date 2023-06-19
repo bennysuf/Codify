@@ -1,15 +1,13 @@
 {
-    "name": "codify-deploy",
-    "engines": {
-        "node": "16.16.0"
-    },
-    "scripts": {
-        "clean": "rm -rf public",
-        "builds": "npm install --prefix client && npm run build --prefix client",
-        "deploy": "cp -a client/build/. public/",
-        "postbuild": "npm run clean && npm run builds && npm run deploy"
-    },
-    "dependencies": {
-        "serve": "^14.2.0"
-    }
+  "name": "codify-deploy",
+  "engines": {
+    "node": "16.16.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "clean": "rm -rf public",
+    "builds": "npm install --prefix client && npm run build --prefix client",
+    "deploy": "cp -a client/build/. public/",
+    "postbuild": "npm run clean && npm run builds && npm run deploy"
+  }
 }
