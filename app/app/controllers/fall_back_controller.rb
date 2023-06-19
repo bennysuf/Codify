@@ -1,4 +1,4 @@
-class FallbackController < ActionController::Base
+class FallBackController < ActionController::Base
     def index
       render file: 'public/index.html'
     end
