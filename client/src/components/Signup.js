@@ -43,14 +43,15 @@ export default function Signup() {
         email: email,
       }),
     }).then((r) => {
-      if (r.ok) {
+      // if (r.ok) {
         r.json().then((user) => {
+          console.log("signup", user)
           setAdmin(user);
           navigate(`/admin/edit-admin`);
         });
-      } else {
-        r.json().then((err) => setErrors(err.errors));
-      }
+      // } else {
+      //   r.json().then((err) => setErrors(err.errors));
+      // }
     });
   }
 
