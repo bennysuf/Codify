@@ -86,11 +86,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # ! change host to domain after production
-  # * link in email to website
-    # config.action_mailer.default_url_options = {host:'mydomain.com'}
     config.action_mailer.default_url_options = ENV['HOST']
-  # config.action_mailer.default_url_options = @host
+    config.action_mailer.delivery_method = :smtp
 
 
   config.action_mailer.smtp_settings = {
