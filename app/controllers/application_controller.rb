@@ -8,7 +8,6 @@ class ApplicationController < ActionController::API
 
     private
 
-    
     def find_dev 
        Developer.find_by(id: session[:dev_id])
     end
@@ -25,8 +24,4 @@ class ApplicationController < ActionController::API
         render json: { errors: invalid.record.errors }, status: :unprocessable_entity
     end
 
-
 end
-
-# TODO: controllers
-# TODO: mail_form
