@@ -68,7 +68,6 @@ export default function EditProject({ project }) {
 
   return (
     <>
-      <h3>Edit projects page</h3>
       {errors.map((err) => (
         <h5 className="input" key={err}>
           {err}

@@ -29,7 +29,6 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <h1>Project page</h1>
       <Routes>
         <Route
           path=":projectId"

@@ -44,7 +44,6 @@ export default function EditAdmin() {
 
   return (
     <>
-      <h1>Create admin</h1>
       <form onSubmit={handleSubmit}>
         <div className="input">
           <input

@@ -15,7 +15,6 @@ class ProjectsController < ApplicationController
 
     def show
         dev = find_dev
-        # dev = Developer.first
         projects = dev.projects.all.order("created_at DESC")
         render json: projects, status: :ok
     end

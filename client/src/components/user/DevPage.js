@@ -8,7 +8,6 @@ export default function DevPage() {
   return (
     <div style={{marginTop: "3px"}} >
       <DevNavBar />
-      <h3>DevPage</h3>
       <Routes>
         <Route path="about" element={<AboutPage />} />
         <Route path="projects" element={<DevProjectPage />} />

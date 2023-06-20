@@ -82,7 +82,11 @@ export default function EditAdmin() {
       method: "DELETE",
     })
       .then((r) => r.json())
-      .then(() => navigate("/"));
+      .then(() => {
+        const removal = devs.filter(dev => dev.id !== admin.id)
+        setDevs(removal)
+        navigate("/")
+      });
   }
 
   return (
@@ -119,7 +123,6 @@ export default function EditAdmin() {
         ))}
       </div>
       <form onSubmit={handleSubmit}>
-        {/* <div class="grid"> */}
         <div className="input">
           <br />
           <label style={{ marginLeft: "3%", width: "fit-content" }}>
