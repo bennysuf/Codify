@@ -14,18 +14,15 @@ class DevelopersController < ApplicationController
  
     def show
         dev = find_dev
-        # dev = Developer.find_by(id: params[:id])
         render json: dev, status: :ok
     end
 
     def index
-        render json: Developer.all, status: :ok
-        # render json: Developer.where(public_profile: true), status: :ok
+        render json: Developer.where(public_profile: true), status: :ok
     end
 
     def update
         dev = find_dev
-        # dev = Developer.find_by(id: params[:id])
         links = params[:social_links]
         dev_finder = Developer.find_by(username: params[:username])
         dev.social_link.update!(
@@ -57,7 +54,7 @@ class DevelopersController < ApplicationController
     end
 
     def destroy
-        dev = Developer.find(params[:id])
+        dev = find_dev
         dev.destroy
         render json: {}, status: :ok
     end
