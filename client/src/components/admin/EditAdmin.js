@@ -12,6 +12,7 @@ export default function EditAdmin() {
   const [selectedKey, setSelectedKey] = useState("");
   const [newUsername, setNewUsername] = useState(username);
   const [publicProfile, setPublicProfile] = useState(public_profile);
+  const [confirmation, setConfirmation] = useState(false);
   const [errors, setErrors] = useState([]);
 
   const handleChange = (event) => {
@@ -45,7 +46,6 @@ export default function EditAdmin() {
       body: JSON.stringify(update),
     }).then((r) => {
       if (r.ok) {
-        // r.json().then((d) => console.log("edit data", d));
         r.json().then((d) => {
           setAdmin(d);
           setDevs(
@@ -72,8 +72,46 @@ export default function EditAdmin() {
     });
   }
 
+  function handleDeleteConfirmation() {
+    setConfirmation(true);
+    window.scrollTo(0, 0);
+  }
+
+  function handleDelete() {
+    fetch(`/developers/${admin.id}`, {
+      method: "DELETE",
+    })
+      .then((r) => r.json())
+      .then(() => navigate("/"));
+  }
+
   return (
     <>
+      {confirmation ? (
+        <dialog open>
+          <article>
+            <h3>Confirm your action!</h3>
+            <p>
+              By clicking Confirm you will permanently be deleting your account.
+            </p>
+            <footer>
+              <a
+                href="#cancel"
+                role="button"
+                class="secondary"
+                onClick={() => setConfirmation(false)}
+              >
+                Cancel
+              </a>
+              <a href="#confirm" role="button" onClick={handleDelete}>
+                Confirm
+              </a>
+            </footer>
+          </article>
+        </dialog>
+      ) : (
+        ""
+      )}
       <div className="input">
         <br />
         {errors.map((err) => (
@@ -147,6 +185,13 @@ export default function EditAdmin() {
         </button>
         <br />
       </form>
+      <button
+        type="button"
+        className="button"
+        onClick={handleDeleteConfirmation}
+      >
+        Delete Account
+      </button>
     </>
   );
 }
