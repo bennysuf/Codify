@@ -10,7 +10,7 @@ function App() {
   const [devs, setDevs] = useState([]);
   const [projects, setProjects] = useState([]);
 
-  const searchParams = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const param = searchParams.get("developers");
 
