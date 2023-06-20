@@ -55,7 +55,7 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
   # ! remove after production
-  config.action_mailer.default_url_options = ENV['HOST']
+  config.action_mailer.default_url_options = {host: ENV['HOST']}
   # config.action_mailer.default_url_options = {host:'localhost:4000/home'}
 
   config.action_mailer.delivery_method = :letter_opener
