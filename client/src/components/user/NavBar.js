@@ -10,13 +10,10 @@ export default function NavBar() {
       </ul>
       <ul style={{ marginRight: "3%" }}>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/login">Login</Link>
         </li>
         <li>
-          <Link to="/login">Dev Login</Link>
-        </li>
-        <li>
-          <Link to="/signup">Dev Signup</Link>
+          <Link to="/signup">Signup</Link>
         </li>
       </ul>
     </nav>
