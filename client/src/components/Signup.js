@@ -49,7 +49,7 @@ export default function Signup() {
           navigate(`/admin/edit-admin`);
         });
       } else {
-        r.json().then((err) => setErrors(err.errors));
+        r.json().then((err) => setErrors(err.errors || ["Internal Error"]));
       }
     });
   }
