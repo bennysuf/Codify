@@ -14,5 +14,5 @@ export default function DevProjectPage() {
     </div>
   ));
 
-  return <div>{projects}</div>;
+  return <div style={{marginTop: "20px"}}>{projects}</div>;
 }
