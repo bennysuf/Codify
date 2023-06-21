@@ -21,7 +21,7 @@ export default function AboutPage() {
     <>
       <article>
         <header>About Me</header>
-        <textarea defaultValue={about} style={{ height: `500px` }}/>
+        <textarea defaultValue={about} readOnly style={{ height: `500px` }}/>
         {/* <textarea defaultValue={profile ? profile.about : ""} style={{ height: `500px` }}/> */}
       </article>
     </>
