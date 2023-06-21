@@ -3,7 +3,7 @@ import { UserContext } from "../App";
 import { Link } from "react-router-dom";
 
 export default function DevNavBar() {
-  const { currentDev } = useContext(UserContext);
+  const { currentDev, navigate } = useContext(UserContext);
 
   const { username, resume, about, social_link, projects } = currentDev[0];
 
@@ -22,20 +22,12 @@ export default function DevNavBar() {
   return (
     <>
       <nav>
-        <ul style={{ marginLeft: "5%" }}>
+        <ul style={{ marginLeft: "3%" }}>
           <li>
-            <strong>Codify</strong>
+            <strong onClick={()=> navigate("/")}>Codify</strong>
           </li>
         </ul>
-        <ul style={{ marginRight: "3%" }}>
-          <li key="dev-page">
-            <Link
-              to={"/developer?developers=" + username}
-              className={path === "/developer" ? "secondary" : ""}
-            >
-              {username}'s page
-            </Link>
-          </li>
+        <ul style={{ marginRight: "7%" }}>
           {about === "" ? (
             <></>
           ) : (
