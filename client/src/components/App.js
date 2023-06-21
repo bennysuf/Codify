@@ -9,6 +9,7 @@ function App() {
   const [admin, setAdmin] = useState(null);
   const [devs, setDevs] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [reload, setReload] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -27,7 +28,7 @@ function App() {
         });
       }
     });
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     fetch("/developers")
@@ -48,6 +49,7 @@ function App() {
         projects,
         setProjects,
         navigate,
+        setReload
       }}
     >
       <Routing admin={admin} currentDev={currentDev[0]} />
