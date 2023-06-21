@@ -7,7 +7,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const { setAdmin, navigate } = useContext(UserContext);
+  const { setAdmin, navigate, setReload } = useContext(UserContext);
 
   function handleLogin() {
     fetch("/login", {
@@ -21,7 +21,8 @@ export default function Login() {
       if (r.ok) {
         r.json().then((user) => {
           setAdmin(user);
-          navigate(`/admin`);
+          setReload("reload");
+          navigate(`/admin/projects-page`);
         });
       } else {
         r.json().then((err) => setErrors(err.error));
