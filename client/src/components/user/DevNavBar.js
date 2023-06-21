@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function DevNavBar() {
   const { currentDev, navigate } = useContext(UserContext);
 
-  const { username, resume, about, social_link, projects } = currentDev[0];
+  const { username, resume, about, social_link, ordered_projects } = currentDev;
 
   const [socialLinks, setSocialLinks] = useState(false);
 
@@ -40,7 +40,7 @@ export default function DevNavBar() {
               </Link>
             </li>
           )}
-          {!projects[0] ? (
+          {!ordered_projects[0] ? (
             <></>
           ) : (
             <li key="projects">

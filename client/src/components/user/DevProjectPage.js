@@ -5,9 +5,7 @@ import ProjectCard from "../ProjectCard";
 export default function DevProjectPage() {
   const { currentDev } = useContext(UserContext);
 
-  // ! page will show old projects until page is reloaded
-
-  const projects = currentDev[0].projects.map((project) => (
+  const projects = currentDev.ordered_projects.map((project) => (
     <div key={project.id}>
       <ProjectCard key={project.id} project={project} />
       <br />

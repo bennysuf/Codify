@@ -23,7 +23,7 @@ function App() {
         r.json().then((user) => {
           if (user) {
             setAdmin(user);
-            setProjects(user.projects);
+            setProjects(user.ordered_projects);
           }
         });
       }
@@ -36,7 +36,7 @@ function App() {
       .then(setDevs);
   }, []);
 
-  const currentDev = devs.filter((dev) => dev.username === param);
+  const currentDev = devs.find((dev) => dev.username === param);
 
   return (
     <UserContext.Provider
@@ -52,7 +52,7 @@ function App() {
         setReload
       }}
     >
-      <Routing admin={admin} currentDev={currentDev[0]} />
+      <Routing admin={admin} currentDev={currentDev} />
     </UserContext.Provider>
   );
 }

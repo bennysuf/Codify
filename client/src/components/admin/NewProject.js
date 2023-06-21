@@ -24,7 +24,7 @@ export default function NewProject() {
       body: JSON.stringify(created),
     }).then((r) => {
       if (r.ok) {
-        r.json().then((newProject) => setProjects([...projects, newProject]));
+        r.json().then((newProject) => setProjects([newProject, ...projects]));
         navigate("/admin/projects-page");
       } else {
         r.json().then((err) => {
