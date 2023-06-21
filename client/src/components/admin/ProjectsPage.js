@@ -28,7 +28,7 @@ export default function ProjectsPage() {
   });
 
   return (
-    <>
+    <div style={{marginTop: "20px"}}>
       <Routes>
         <Route
           path=":projectId"
@@ -36,6 +36,6 @@ export default function ProjectsPage() {
         />
       </Routes>
       {projectList}
-    </>
+    </div>
   );
 }
