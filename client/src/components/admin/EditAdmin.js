@@ -83,9 +83,9 @@ export default function EditAdmin() {
     })
       .then((r) => r.json())
       .then(() => {
-        const removal = devs.filter(dev => dev.id !== admin.id)
-        setDevs(removal)
-        navigate("/")
+        const removal = devs.filter((dev) => dev.id !== admin.id);
+        setDevs(removal);
+        navigate("/");
       });
   }
 
@@ -100,7 +100,7 @@ export default function EditAdmin() {
             </p>
             <footer>
               <a
-                href="#cancel"
+                href="#/"
                 role="button"
                 class="secondary"
                 onClick={() => setConfirmation(false)}
