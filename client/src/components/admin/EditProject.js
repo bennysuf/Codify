@@ -97,8 +97,9 @@ export default function EditProject({ project }) {
             style={{ height: "100px" }}
           />
         </div>
-        <button type="submit">Submit</button>
-        <button type="button" onClick={() => handleDelete(project)}>
+        <button type="submit" className="button">Submit</button>
+        <br/>
+        <button type="button" className="button" onClick={() => handleDelete(project)}>
           Delete project
         </button>
       </form>
