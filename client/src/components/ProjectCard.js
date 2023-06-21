@@ -5,14 +5,13 @@ export default function ProjectCard({ project }) {
 
   return (
     <article className="card">
-      <header>Title: {title}</header>
+      <header>{title}</header>
       <h4>
-        Link:{" "}
         <a href={"https://" + url} target="_blank" rel="noreferrer">
           {linkText}
         </a>
       </h4>
-      <p>Description: {description}</p>
+      <p>{description}</p>
     </article>
   );
 }
