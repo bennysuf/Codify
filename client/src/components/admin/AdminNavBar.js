@@ -1,21 +1,29 @@
+import { useContext } from "react";
+import { UserContext } from "../App";
 import { Link } from "react-router-dom";
 
 export default function AdminNavBar() {
   const path = window.location.pathname;
 
+  const { setAdmin, setProjects } = useContext(UserContext);
+
+  function handleLogout() {
+    fetch("/logout", {
+      method: "DELETE",
+    }).then(() => {
+      setAdmin(null);
+      setProjects([]);
+    });
+  }
+
   return (
     <nav>
       <ul style={{ marginLeft: "5%" }}>
-      <li >
-            <strong>Codify</strong>
-          </li>
-        </ul>
-        <ul style={{marginRight: "3%"}}>
-        <li key="admin">
-          <Link to="/admin" className={path === "/admin" ? "secondary" : ""}>
-            Home
-          </Link>
+        <li>
+          <strong>Codify</strong>
         </li>
+      </ul>
+      <ul style={{ marginRight: "3%" }}>
         <li key="projects-page">
           <Link
             to="/admin/projects-page"
@@ -39,6 +47,11 @@ export default function AdminNavBar() {
           >
             Edit profile
           </Link>
+        </li>
+        <li key="logout">
+          <a href="/" onClick={handleLogout}>
+            Log out
+          </a>
         </li>
       </ul>
     </nav>
