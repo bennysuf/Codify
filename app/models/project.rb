@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
     has_many :dev_projects, dependent: :destroy
     has_many :developers, through: :dev_projects
+    has_many :collaborations
 
     validates :title, presence: true
     validates :description, presence: true

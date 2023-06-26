@@ -1,6 +1,7 @@
 class Developer < ApplicationRecord
     has_many :dev_projects
     has_many :projects, through: :dev_projects
+    has_many :collaborators
     has_one :social_link, dependent: :destroy
 
     has_secure_password
