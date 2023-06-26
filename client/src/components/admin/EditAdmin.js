@@ -74,7 +74,6 @@ export default function EditAdmin() {
 
   function handleDeleteConfirmation() {
     setConfirmation(true);
-    window.scrollTo(0, 0);
   }
 
   function handleDelete() {
