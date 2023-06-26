@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_07_004519) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_23_181856) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "collaborations", force: :cascade do |t|
+    t.bigint "developer_id", null: false
+    t.bigint "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["developer_id"], name: "index_collaborations_on_developer_id"
+    t.index ["project_id"], name: "index_collaborations_on_project_id"
+  end
 
   create_table "dev_projects", force: :cascade do |t|
     t.bigint "developer_id", null: false
@@ -57,6 +66,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_004519) do
     t.index ["developer_id"], name: "index_social_links_on_developer_id"
   end
 
+  add_foreign_key "collaborations", "developers"
+  add_foreign_key "collaborations", "projects"
   add_foreign_key "dev_projects", "developers"
   add_foreign_key "dev_projects", "projects"
   add_foreign_key "social_links", "developers"
