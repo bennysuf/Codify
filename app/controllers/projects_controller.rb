@@ -1,6 +1,9 @@
 class ProjectsController < ApplicationController
-    skip_before_action :authorize, only: [:create, :index, :show, :update, :destroy]
-    
+    skip_before_action :authorize, only: [:create, :show, :update, :destroy]
+
+    # TODO: add collab create and destroy actions with custom routes? or in update and create? or have it in collab controller?
+    # if in update then destroy collab has to be in update as well
+
     def create
         dev = find_dev
         project = dev.projects.create!(project_params)
@@ -14,13 +17,13 @@ class ProjectsController < ApplicationController
     end
 
     def show
-        dev = find_dev
-        projects = dev.projects.all.order("created_at DESC")
-        render json: projects, status: :ok
-    end
-
-    def index
-       render json: Project.all
+        dev = Developer.find_by_id(params[:id]) || find_dev
+        #?  does || work? 
+        projects = dev.projects
+        looping = projects.each do |project|
+            project.collaborations
+        end
+        render json: looping, status: :ok
     end
 
     def destroy
