@@ -26,7 +26,7 @@ export default function ProjectCard({ project, collabs }) {
             <ul role="listbox">
               {collabs.map((dev) => {
                 const {dev_username, id} = dev
-                if (dev_username !== currentDev?.username || dev_username !== admin?.username) {
+                if (dev_username !== currentDev?.username && dev_username !== admin?.username) {
                   return (
                     <Link
                       key={id}
