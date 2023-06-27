@@ -1,5 +1,5 @@
 class DevelopersController < ApplicationController
-    skip_before_action :authorize, only: [:index, :show, :create, :update, :destroy]
+    skip_before_action :authorize, only: [:index, :create, :update, :destroy]
 
     def create
         dev = Developer.create(dev_params)
@@ -10,11 +10,6 @@ class DevelopersController < ApplicationController
         else
             render json: {errors: dev.errors.full_messages}, status: :unprocessable_entity
         end
-    end
- 
-    def show
-        dev = find_dev
-        render json: dev, status: :ok
     end
 
     def index
