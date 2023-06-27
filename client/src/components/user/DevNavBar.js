@@ -10,6 +10,7 @@ export default function DevNavBar() {
   const [socialLinks, setSocialLinks] = useState(false);
 
   useEffect(() => {
+    setSocialLinks(false);
     const obj = Object.values(social_link).filter((value) => value !== "");
 
     if (obj[0]) {
