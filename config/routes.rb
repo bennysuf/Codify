@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :projects
   resources :developers
-  resources :collaborations, only: [:create, :destroy]
+  resources :collaborations, only: [:create, :destroy, :index]
   get "/admin", to: "developers#show"
   post "/signup", to: "developers#create"
   post "/login", to: "sessions#create"
