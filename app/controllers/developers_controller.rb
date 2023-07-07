@@ -1,5 +1,5 @@
 class DevelopersController < ApplicationController
-    skip_before_action :authorize, only: [:index, :create, :update, :destroy]
+    skip_before_action :authorize, only: [:index, :create, :update, :destroy, :show]
 
     def create
         dev = Developer.create(dev_params)
@@ -14,6 +14,11 @@ class DevelopersController < ApplicationController
 
     def index
         render json: Developer.where(public_profile: true), status: :ok
+    end
+
+    def show
+        dev = find_dev
+        render json: dev, status: :ok
     end
 
     def update

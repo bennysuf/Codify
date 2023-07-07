@@ -12,14 +12,14 @@ class ProjectsController < ApplicationController
 
     def update
         project = Project.find_by_id(params[:id]) 
+        project.collaborations.delete_all
         project.update!(project_params)
         render json: project, status: :accepted 
     end
 
     def show
         dev = Developer.find_by_id(params[:id]) || find_dev
-        #?  does || work? 
-        projects = dev.projects
+        projects = dev.projects.order("created_at DESC")
         looping = projects.each do |project|
             project.collaborations
         end
