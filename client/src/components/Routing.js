@@ -13,7 +13,7 @@ export default function Routing({ admin, currentDev }) {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route exact path="/" element={<Home />} />
-        {admin ?  <Route path="/admin/*" element={<Admin />} /> : <></>}
+        {admin ?  <Route path="/admin/*" element={<Admin admin={admin}/>} /> : <></>}
         {currentDev ? <Route path="/developer/*" element={<DevPage />} /> : <></>}
         <Route path="*" element={<NotFound />} />
       </Routes>
