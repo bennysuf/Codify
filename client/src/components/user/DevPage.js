@@ -6,12 +6,14 @@ import DevProjectPage from "./DevProjectPage";
 export default function DevPage() {
 
   return (
-    <div style={{marginTop: "3px"}} >
+    <>
+    <div className="hide-on-mobile">
       <DevNavBar />
+    </div>
       <Routes>
         <Route path="about" element={<AboutPage />} />
         <Route path="projects" element={<DevProjectPage />} />
       </Routes>
-    </div>
+    </>
   );
 }
