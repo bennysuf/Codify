@@ -7,11 +7,11 @@ export default function AboutPage() {
   const { about } = currentDev;
 
   return (
-    <>
-      <article>
+    
+      <article className="article">
         <header>About Me</header>
-        <textarea defaultValue={about} readOnly style={{ height: `500px` }}/>
+        <pre style={{ overflow: "auto", padding: "25px" }}>{about}</pre>
       </article>
-    </>
+   
   );
 }
