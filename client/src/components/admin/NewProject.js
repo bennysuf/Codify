@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../App";
 
-export default function NewProject() {
-  const { projects, setProjects, navigate, devs } = useContext(UserContext);
+export default function NewProject({ projects, setProjects }) {
+  const { navigate, devs, admin } = useContext(UserContext);
 
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -44,7 +44,6 @@ export default function NewProject() {
       body: JSON.stringify(created),
     }).then((r) => {
       if (r.ok) {
-        debugger;
         r.json().then((newProject) => {
           if (collaborators[0]) {
             collaborators.forEach((dev) => {
@@ -57,12 +56,16 @@ export default function NewProject() {
                 }),
               }).then((r) => {
                 if (r.ok) {
-                  r.json().then((d) => console.log("colab fetch", d));
+                  r.json().then((d) => {
+                    newProject.collaborations = [d];
+                    setProjects([newProject, ...projects]);
+                  });
                 }
               });
             });
+          } else {
+            setProjects([newProject, ...projects]);
           }
-          setProjects([newProject, ...projects]);
         });
         navigate("/admin/projects-page");
       } else {
@@ -79,75 +82,81 @@ export default function NewProject() {
 
   return (
     <>
-      {errors.map((err) => (
-        <h5 className="input" key={err}>
-          {err}
-        </h5>
-      ))}
-      <form onSubmit={handleSubmit}>
-        <div className="input">
-          <input
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <input
-            placeholder="Url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
-          <input
-            placeholder="Website"
-            value={webText}
-            onChange={(e) => setWebText(e.target.value)}
-          />
-          <textarea
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            style={{ height: "100px" }}
-          />
-          <div class="grid">
-            <details role="list">
-              <summary aria-haspopup="listbox" role="button">
-                Collaborators
-              </summary>
-              <ul role="listbox">
-                {collaborators.map((dev) => {
-                  return (
-                    <li key={dev} onClick={() => handleCollabRemoval(dev)}>
-                      Remove {dev}
-                    </li>
-                  );
-                })}
-              </ul>
-            </details>
-            <details role="list">
-              <summary aria-haspopup="listbox" role="button">
-                {/* //TODO: add search bar, dropdown only shows search.includes */}
-                Add collaborators
-              </summary>
-              <ul role="listbox">
-                {devs.map((dev) => {
-                  return (
-                    <li
-                      key={dev.id}
-                      onClick={() => handleCollabAdd(dev.username)}
-                    >
-                      {dev.username}
-                    </li>
-                  );
-                })}
-              </ul>
-            </details>
-          </div>
-        </div>
-        <button type="submit" className="button">
-          Submit
-        </button>
-        <br />
-        <div style={{ textAlign: "center" }}>{added}</div>
-      </form>
+      <body>
+        <main class="container">
+          {errors.map((err) => (
+            <h5 className="input" key={err}>
+              {err}
+            </h5>
+          ))}
+          <form onSubmit={handleSubmit}>
+            <div className="input">
+              <input
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <input
+                placeholder="Url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />
+              <input
+                placeholder="Website"
+                value={webText}
+                onChange={(e) => setWebText(e.target.value)}
+              />
+              <textarea
+                placeholder="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                style={{ height: "100px" }}
+              />
+              <div class="grid">
+                <details role="list">
+                  <summary aria-haspopup="listbox" role="button">
+                    Collaborators
+                  </summary>
+                  <ul role="listbox">
+                    {collaborators.map((dev) => {
+                      return (
+                        <li key={dev} onClick={() => handleCollabRemoval(dev)}>
+                          Remove {dev}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </details>
+                <details role="list">
+                  <summary aria-haspopup="listbox" role="button">
+                    {/* //TODO: add search bar, dropdown only shows search.includes */}
+                    Add collaborators
+                  </summary>
+                  <ul role="listbox">
+                    {devs.map((dev) => {
+                      if (dev.username !== admin.username) {
+                        return (
+                          <li
+                            key={dev.id}
+                            onClick={() => handleCollabAdd(dev.username)}
+                          >
+                            {dev.username}
+                          </li>
+                        );
+                      }
+                    })}
+                  </ul>
+                </details>
+              </div>
+            </div>
+            <button type="submit" className="button">
+              Submit
+            </button>
+            <br />
+            <div style={{ textAlign: "center" }}>{added}</div>
+          </form>
+        </main>
+      </body>
     </>
   );
 }
