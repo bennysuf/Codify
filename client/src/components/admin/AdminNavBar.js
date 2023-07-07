@@ -7,6 +7,9 @@ export default function AdminNavBar() {
 
   const { setAdmin, setProjects } = useContext(UserContext);
 
+  // TODO: fix navbar to top
+  // TODO: create dynamic navbars 
+
   function handleLogout() {
     fetch("/logout", {
       method: "DELETE",
@@ -17,43 +20,47 @@ export default function AdminNavBar() {
   }
 
   return (
-    <nav>
-      <ul style={{ marginLeft: "5%" }}>
-        <li>
-          <strong>Codify</strong>
-        </li>
-      </ul>
-      <ul style={{ marginRight: "3%" }}>
-        <li key="projects-page">
-          <Link
-            to="/admin/projects-page"
-            className={path === "/admin/projects-page" ? "secondary" : ""}
-          >
-            Projects
-          </Link>
-        </li>
-        <li key="new-project">
-          <Link
-            to="/admin/new-project"
-            className={path === "/admin/new-project" ? "secondary" : ""}
-          >
-            New project
-          </Link>
-        </li>
-        <li key="about">
-          <Link
-            to={"/admin/edit-admin"}
-            className={path === "/admin/edit-admin" ? "secondary" : ""}
-          >
-            Edit profile
-          </Link>
-        </li>
-        <li key="logout">
-          <a href="/" onClick={handleLogout}>
-            Log out
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <body>
+      <main class="container">
+        <nav>
+          <ul style={{ marginLeft: "5%" }}>
+            <li>
+              <strong>Codify</strong>
+            </li>
+          </ul>
+          <ul style={{ marginRight: "3%" }}>
+            <li key="projects-page">
+              <Link
+                to="/admin/projects-page"
+                className={path === "/admin/projects-page" ? "secondary" : ""}
+              >
+                Projects
+              </Link>
+            </li>
+            <li key="new-project">
+              <Link
+                to="/admin/new-project"
+                className={path === "/admin/new-project" ? "secondary" : ""}
+              >
+                New project
+              </Link>
+            </li>
+            <li key="about">
+              <Link
+                to={"/admin/edit-admin"}
+                className={path === "/admin/edit-admin" ? "secondary" : ""}
+              >
+                Edit profile
+              </Link>
+            </li>
+            <li key="logout">
+              <a href="/" onClick={handleLogout}>
+                Log out
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </main>
+    </body>
   );
 }
