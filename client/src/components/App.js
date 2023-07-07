@@ -8,7 +8,6 @@ export const UserContext = createContext(null);
 function App() {
   const [admin, setAdmin] = useState(null);
   const [devs, setDevs] = useState([]);
-  const [projects, setProjects] = useState([]);
   const [reload, setReload] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,7 +22,6 @@ function App() {
         r.json().then((user) => {
           if (user) {
             setAdmin(user);
-            setProjects(user.ordered_projects);
           }
         });
       }
@@ -46,8 +44,6 @@ function App() {
         devs,
         setDevs,
         currentDev,
-        projects,
-        setProjects,
         navigate,
         setReload
       }}
