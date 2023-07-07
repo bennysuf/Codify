@@ -12,6 +12,12 @@ code {
     monospace;
 } */
 
+* {
+
+/* text-align: center; */
+margin: auto;
+} 
+
 .textarea {
   width: 55%;
   height: 175%;
@@ -21,22 +27,73 @@ code {
 .button {
   text-align: center;
   margin: auto;
-  width: 45%;
+  width: 25%;
 }
 
 .input {
   text-align: center;
   margin: auto;
-  width: 65%;
+  width: 35%;
 }
 
-.card{
+.card {
   text-align: center;
   margin: auto;
-  width: 65%;
+  width: 500px;
+}
+
+.article {
+  text-align: left;
+  margin-left: 10%;
+  margin-Right: 10%;
 }
 
 .radio {
   text-align: center;
   margin-left: 10px;
 }
+
+@media (max-width: 500px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+@media (min-width: 500px) {
+  .show-on-mobile {
+    display: none;
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  .input {
+    text-align: center;
+    margin: auto;
+    width: 65%;
+  }
+  .button {
+    text-align: center;
+    margin: auto;
+    width: 45%;
+  }
+  .card {
+    text-align: center;
+    margin: auto;
+    width: 300px;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .card {
+    text-align: center;
+    margin: auto;
+    width: 65%;
+  }
+  /* .article {
+    text-align: left;
+    margin-left: 10%; 
+     margin-Right: 10%;
+  } */
+  
+}
+/* ! navbars are causing the weird renders */
