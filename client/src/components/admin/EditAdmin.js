@@ -116,9 +116,8 @@ export default function EditAdmin() {
         ""
       )}
       <div className="input">
-        <br />
         {errors.map((err) => (
-          <h3 key={err}>{err}</h3>
+          <h5 key={err}>{err}</h5>
         ))}
       </div>
       <form onSubmit={handleSubmit}>
@@ -191,6 +190,7 @@ export default function EditAdmin() {
         type="button"
         className="button"
         onClick={handleDeleteConfirmation}
+        style={{marginBottom: '50px'}}
       >
         Delete Account
       </button>
