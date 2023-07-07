@@ -7,6 +7,7 @@ export default function ProjectCard({ project, collabs }) {
   const { title, url, description, linkText } = project;
 
   // TODO: need to check if "https://" is in the url, else add it href={"https://" + url}
+  
 
   return (
     <article className="card">
@@ -16,7 +17,7 @@ export default function ProjectCard({ project, collabs }) {
           {linkText}
         </a>
       </h4>
-      <p>{description}</p>
+      <pre style={{ overflow: "auto", padding: "25px" }}>{description}</pre>
       {collabs[0] ? (
         <nav>
           <li key="social" role="list" dir="rtl">
@@ -25,13 +26,14 @@ export default function ProjectCard({ project, collabs }) {
             </summary>
             <ul role="listbox">
               {collabs.map((dev) => {
-                const {dev_username, id} = dev
-                if (dev_username !== currentDev?.username && dev_username !== admin?.username) {
+                const { dev_username, id } = dev;
+                if (
+                  dev_username !== currentDev?.username &&
+                  dev_username !== admin?.username
+                ) {
+                  // *might not need it if ou cant add self username to begin with
                   return (
-                    <Link
-                      key={id}
-                      to={`/developer?developers=${dev_username}`}
-                    >
+                    <Link key={id} to={`/developer?developers=${dev_username}`}>
                       {dev_username}
                     </Link>
                   );
