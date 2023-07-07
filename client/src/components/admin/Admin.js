@@ -1,21 +1,28 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 import EditAdmin from "./EditAdmin";
 import NewProject from "./NewProject";
 import AdminNavBar from "./AdminNavBar";
 import ProjectsPage from "./ProjectsPage";
-import CreateProfile from "./CreateProfile";
 
-export default function Admin() {
+export default function Admin({admin}) {
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    fetch(`/projects/${admin.id}`)
+      .then((r) => r.json())
+      .then((d) => setProjects(d));
+  }, []);
 
   return (
-    <div style={{marginTop: "3%"}}>
+    <div>
+      <div className="hide-on-mobile">
       <AdminNavBar />
+      </div>
       <Routes>
         <Route path="edit-admin" element={<EditAdmin />} />
-        <Route path="create-profile" element={<CreateProfile />} />
-        <Route path="new-project" element={<NewProject />} />
-        <Route path="projects-page/*" element={<ProjectsPage />} />
+        <Route path="new-project" element={<NewProject projects={projects} setProjects={setProjects}/>} />
+        <Route path="projects-page/*" element={<ProjectsPage projects={projects} setProjects={setProjects}/>} />
       </Routes>
     </div>
   );
