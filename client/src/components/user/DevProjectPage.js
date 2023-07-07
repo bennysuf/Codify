@@ -21,5 +21,5 @@ export default function DevProjectPage() {
     );
   });
 
-  return <div style={{ marginTop: "20px" }}>{projectList}</div>;
+  return <div>{projectList}</div>;
 }
