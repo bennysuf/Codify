@@ -68,7 +68,7 @@ export default function Signup() {
           </li>
         </ul>
       </nav>
-      <div className="input" style={{ marginTop: "10%" }}>
+      <article className="input" style={{ marginTop: "10px" }}>
         <input
           type="text"
           id="username"
@@ -109,7 +109,7 @@ export default function Signup() {
         {errors.map((err) => (
           <h4 key={err}>{err}</h4>
         ))}
-      </div>
+      </article>
     </>
   );
 }

@@ -44,7 +44,7 @@ export default function Login() {
           </li>
         </ul>
       </nav>
-      <div className="input" style={{ marginTop: "10%" }}>
+      <article className="input" style={{ marginTop: "10px" }}>
         <input
           type="text"
           placeholder="Username"
@@ -65,7 +65,7 @@ export default function Login() {
         <br />
         <Link to="/signup">{"Signup"}</Link>
         {<h4 key={errors}>{errors}</h4>}
-      </div>
+      </article>
     </>
   );
 }
