@@ -1,5 +1,5 @@
 class DevelopersController < ApplicationController
-    skip_before_action :authorize, only: [:index, :create, :update, :destroy, :show]
+    skip_before_action :authorize, only: [:index, :create]
 
     def create
         dev = Developer.create(dev_params)

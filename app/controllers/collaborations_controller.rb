@@ -1,5 +1,4 @@
 class CollaborationsController < ApplicationController
-    skip_before_action :authorize, only: [:create, :destroy, :index]
 
     def create
         dev = Developer.find_by(username: params[:dev])
