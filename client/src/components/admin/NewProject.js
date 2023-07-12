@@ -1,8 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../App";
+import { AdminContext } from "./Admin";
 
-export default function NewProject({ projects, setProjects }) {
+export default function NewProject() {
   const { navigate, devs, admin } = useContext(UserContext);
+  const { setReload } = useContext(AdminContext);
 
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -57,16 +59,18 @@ export default function NewProject({ projects, setProjects }) {
               }).then((r) => {
                 if (r.ok) {
                   r.json().then((d) => {
-                    newProject.collaborations = [d];
-                    setProjects([newProject, ...projects]);
+                    // newProject.collaborations = [d];
+                    // setProjects([newProject, ...projects]);
+                    setReload(d.dev_username)
                   });
                 }
               });
             });
           } else {
-            setProjects([newProject, ...projects]);
+            // setProjects([newProject, ...projects]);
           }
         });
+        setReload("reload")
         navigate("/admin/projects-page");
       } else {
         r.json().then((err) => {
@@ -118,13 +122,17 @@ export default function NewProject({ projects, setProjects }) {
                     Collaborators
                   </summary>
                   <ul role="listbox">
-                    {collaborators.map((dev) => {
-                      return (
-                        <li key={dev} onClick={() => handleCollabRemoval(dev)}>
-                          Remove {dev}
-                        </li>
-                      );
-                    })}
+                    {collaborators[0] ? (
+                      collaborators.map((dev) => {
+                        return (
+                          <li key={dev} onClick={() => handleCollabRemoval(dev)}>
+                            Remove {dev}
+                          </li>
+                        );
+                      })
+                    ): (
+                        <li key="key">Add collaborators</li>
+                    )}
                   </ul>
                 </details>
                 <details role="list">
