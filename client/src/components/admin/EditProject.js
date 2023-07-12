@@ -1,23 +1,23 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../App";
+import { AdminContext } from "./Admin";
 
-export default function EditProject({ project, updateProjects, projects }) {
-
-  console.log("from edit project", projects);
-
+export default function EditProject({ projectProp }) {
   const { navigate, devs, admin } = useContext(UserContext);
+  const { projects, setProjects, setReload } = useContext(AdminContext);
+  const [project, setProject] = useState(projectProp);
 
   const { projectId } = useParams();
 
-  const currentProject = projects.find(
-    (project) => project.id === parseInt(projectId)
-  );
+  useEffect(() => {
+    setProject(projectProp);
+    fetch(`/get-project/${projectId}`)
+      .then((r) => r.json())
+      .then((d) => setProject(d));
+  }, [projectProp]);
 
-  // console.log("currebt project", currentProject)
-  // TODO: fix page reload issue
-
-  const { description, title, url, linkText, collaborations } = currentProject;
+  const { description, title, url, linkText, collaborations } = project;
 
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
@@ -27,17 +27,21 @@ export default function EditProject({ project, updateProjects, projects }) {
   const [errors, setErrors] = useState([]);
   const [added, setAdded] = useState("");
 
-  useEffect(() =>{
+  useEffect(() => {
     setNewTitle(title);
     setNewDescription(description);
     setNewUrl(url);
     setNewWebText(linkText);
     setNewCollaborators(collaborations);
-  },[project])
+  }, [project]);
 
   function handleCollabAdd(dev) {
-    if (!newCollaborators.find((user) => user === dev)) {
-      setNewCollaborators([...newCollaborators, dev]);
+    if (!newCollaborators.find((user) => user.dev_username === dev)) {
+      const collabDev = devs.find((d) => d.username === dev);
+      const newCollab = {
+        dev_username: collabDev.username,
+      };
+      setNewCollaborators([...newCollaborators, newCollab]);
       setAdded("Added");
     }
   }
@@ -62,7 +66,8 @@ export default function EditProject({ project, updateProjects, projects }) {
       linkText: newWebText,
       description: newDescription,
     };
-
+    const collabs = [];
+    
     fetch(`/projects/${projectId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -70,30 +75,33 @@ export default function EditProject({ project, updateProjects, projects }) {
     }).then((r) => {
       if (r.ok) {
         r.json().then((updatedProject) => {
-          const updated = projects.map((project) => {
-            return project.id !== updatedProject.id ? project : updatedProject;
-          });
+          // const updated = projects.map((project) => {
+          //   return project.id !== updatedProject.id ? project : updatedProject;
+          // });
           if (newCollaborators[0]) {
             newCollaborators.forEach((dev) => {
               fetch("/collaborations", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                  dev,
+                  dev: dev.dev_username,
                   project_id: updatedProject.id,
                 }),
               }).then((r) => {
                 if (r.ok) {
                   r.json().then((d) => {
-                    updatedProject.collaborations = [d];
-                    updateProjects(updated);
+                    // collabs.push(d)
+                    // updatedProject.collaborations = collabs
+                    setReload(d.dev_username)
+                    // setProjects(updated);
                   });
                 }
               });
             });
-          } else {
-            updateProjects(updated);
-          }
+            // } else {
+              // setProjects(updated);
+            }
+            setReload("reload");
           navigate("/admin/projects-page");
         });
       } else {
@@ -115,7 +123,7 @@ export default function EditProject({ project, updateProjects, projects }) {
       .then((r) => r.json())
       .then(() => {
         const updated = projects.filter((project) => project.id !== item.id);
-        updateProjects(updated);
+        setProjects(updated);
         navigate("/admin/projects-page");
       });
   }
@@ -156,13 +164,17 @@ export default function EditProject({ project, updateProjects, projects }) {
                 Collaborators
               </summary>
               <ul role="listbox">
-                {newCollaborators.map((dev) => {
-                  return (
-                    <li key={dev.id} onClick={() => handleCollabRemoval(dev)}>
-                      Remove {dev.dev_username}
-                    </li>
-                  );
-                })}
+                {newCollaborators?.length > 0 ? (
+                  newCollaborators?.map((dev) => {
+                    return (
+                      <li key={dev.dev_username || dev.username} onClick={() => handleCollabRemoval(dev)}>
+                        Remove {dev.username || dev.dev_username}
+                      </li>
+                    );
+                  })
+                ) : (
+                  <li key="key">No collaborators</li>
+                )}
               </ul>
             </details>
             <details role="list">
