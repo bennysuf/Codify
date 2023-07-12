@@ -53,7 +53,7 @@ margin: auto;
   margin-left: 10px;
 }
 
-@media (max-width: 500px) {
+/* @media (max-width: 500px) {
   .hide-on-mobile {
     display: none;
   }
@@ -62,7 +62,7 @@ margin: auto;
   .show-on-mobile {
     display: none;
   }
-}
+} */
 
 
 @media only screen and (max-width: 600px) {
