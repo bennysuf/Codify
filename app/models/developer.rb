@@ -1,6 +1,6 @@
 class Developer < ApplicationRecord
     has_many :dev_projects
-    has_many :projects, through: :dev_projects
+    has_many :projects, through: :dev_projects, dependent: :destroy
     has_many :collaborations
     has_one :social_link, dependent: :destroy
 
