@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import { UserContext } from "../App";
+import { AdminContext } from "./Admin";
 import ProjectCard from "../ProjectCard";
 import EditProject from "./EditProject";
 
-export default function ProjectsPage({ projects, setProjects }) {
+export default function ProjectsPage() {
   const [projectProp, setProjectProp] = useState("");
-  const { navigate, admin } = useContext(UserContext);
+  const { navigate } = useContext(UserContext);
+  const { projects } = useContext(AdminContext);
 
   function handleEdit(project) {
     setProjectProp(project);
@@ -37,13 +39,7 @@ export default function ProjectsPage({ projects, setProjects }) {
         <Routes>
           <Route
             path=":projectId"
-            element={
-              <EditProject
-                project={projectProp}
-                projects={projects}
-                updateProjects={setProjects}
-              />
-            }
+            element={<EditProject projectProp={projectProp} />}
           />
         </Routes>
         {projectList}
