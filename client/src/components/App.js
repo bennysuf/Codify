@@ -15,7 +15,7 @@ function App() {
   const param = searchParams.get("developers");
 
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     fetch("/admin").then((r) => {
       if (r.ok) {
