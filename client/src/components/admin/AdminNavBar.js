@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { UserContext } from "../App";
+import { AdminContext } from "./Admin";
 import { Link } from "react-router-dom";
 
 export default function AdminNavBar() {
   const path = window.location.pathname;
 
-  const { setAdmin, setProjects } = useContext(UserContext);
+  const { setAdmin } = useContext(UserContext);
+  const { setProjects } = useContext(AdminContext);
 
   // TODO: fix navbar to top
   // TODO: create dynamic navbars 
@@ -47,7 +49,7 @@ export default function AdminNavBar() {
             </li>
             <li key="about">
               <Link
-                to={"/admin/edit-admin"}
+                to="/admin/edit-admin"
                 className={path === "/admin/edit-admin" ? "secondary" : ""}
               >
                 Edit profile
