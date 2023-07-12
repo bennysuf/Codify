@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-    skip_before_action :authorize, only: [:create, :show, :update, :destroy]
+    skip_before_action :authorize, only: [:show, :show_project]
 
     # TODO: add collab create and destroy actions with custom routes? or in update and create? or have it in collab controller?
     # if in update then destroy collab has to be in update as well
@@ -24,6 +24,10 @@ class ProjectsController < ApplicationController
             project.collaborations
         end
         render json: looping, status: :ok
+    end
+
+    def show_project
+       render json: Project.find_by_id(params[:id]), status: :ok
     end
 
     def destroy
