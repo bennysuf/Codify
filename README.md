@@ -1,4 +1,4 @@
-# My Phase-4 Project - Mom's Cookbook
+# Codify
 
 ## What my project is:
     this is a web-based application enabling developers
