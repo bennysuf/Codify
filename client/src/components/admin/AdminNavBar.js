@@ -10,7 +10,6 @@ export default function AdminNavBar() {
   const { setProjects } = useContext(AdminContext);
 
   // TODO: fix navbar to top
-  // TODO: create dynamic navbars 
 
   function handleLogout() {
     fetch("/logout", {
@@ -21,6 +20,57 @@ export default function AdminNavBar() {
     });
   }
 
+  const navbar = (
+    <>
+      <li key="projects-page">
+        <Link
+          to="/admin/projects-page"
+          className={path === "/admin/projects-page" ? "secondary" : ""}
+        >
+          Projects
+        </Link>
+      </li>
+      <li key="new-project">
+        <Link
+          to="/admin/new-project"
+          className={path === "/admin/new-project" ? "secondary" : ""}
+        >
+          New project
+        </Link>
+      </li>
+      <li key="about">
+        <Link
+          to="/admin/edit-admin"
+          className={path === "/admin/edit-admin" ? "secondary" : ""}
+        >
+          Edit profile
+        </Link>
+      </li>
+      <li key="logout">
+        <a href="/" onClick={handleLogout}>
+          Log out
+        </a>
+      </li>
+    </>
+  );
+
+  const desktop = (
+    <ul style={{ marginRight: "3%" }} className="hide-on-mobile">
+      {navbar}
+    </ul>
+  );
+
+  const mobile = (
+    <li key="dropdown" role="list" dir="rtl" className="hide-on-desktop">
+      <summary aria-haspopup="listbox" role="link">
+        ☰
+      </summary>
+      <ul role="listbox" style={{ marginRight: "3%" }}>
+        {navbar}
+      </ul>
+    </li>
+  );
+
   return (
     <body>
       <main class="container">
@@ -30,37 +80,8 @@ export default function AdminNavBar() {
               <strong>Codify</strong>
             </li>
           </ul>
-          <ul style={{ marginRight: "3%" }}>
-            <li key="projects-page">
-              <Link
-                to="/admin/projects-page"
-                className={path === "/admin/projects-page" ? "secondary" : ""}
-              >
-                Projects
-              </Link>
-            </li>
-            <li key="new-project">
-              <Link
-                to="/admin/new-project"
-                className={path === "/admin/new-project" ? "secondary" : ""}
-              >
-                New project
-              </Link>
-            </li>
-            <li key="about">
-              <Link
-                to="/admin/edit-admin"
-                className={path === "/admin/edit-admin" ? "secondary" : ""}
-              >
-                Edit profile
-              </Link>
-            </li>
-            <li key="logout">
-              <a href="/" onClick={handleLogout}>
-                Log out
-              </a>
-            </li>
-          </ul>
+          {desktop}
+          {mobile}
         </nav>
       </main>
     </body>
