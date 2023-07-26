@@ -6,8 +6,9 @@ class Developer < ApplicationRecord
 
     has_secure_password
 
-    after_create :send_welcome_email
-
+    #* Will uncomment after styling of email is done
+    # after_create :send_welcome_email
+    
     validates :password, presence: true
     validates :password_confirmation, presence: true
     validates :username, presence: true, uniqueness: true
