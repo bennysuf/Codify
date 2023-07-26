@@ -25,14 +25,11 @@ export default function Admin({ admin }) {
         setReload,
       }}
     >
-      <div className="hide-on-mobile">
-        <AdminNavBar />
-      </div>
+      <AdminNavBar />
       <Routes>
         <Route path="edit-admin" element={<EditAdmin />} />
         <Route path="new-project" element={<NewProject />} />
         <Route path="projects-page/*" element={<ProjectsPage />} />
-        {/* <Route path="projects-page/*" element={<ProjectsPage projects={projects} setProjects={setProjects}/>} /> */}
       </Routes>
     </AdminContext.Provider>
   );
