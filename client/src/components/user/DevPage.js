@@ -7,9 +7,7 @@ export default function DevPage() {
 
   return (
     <>
-    <div className="hide-on-mobile">
       <DevNavBar />
-    </div>
       <Routes>
         <Route path="about" element={<AboutPage />} />
         <Route path="projects" element={<DevProjectPage />} />
