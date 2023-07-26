@@ -53,16 +53,16 @@ margin: auto;
   margin-left: 10px;
 }
 
-/* @media (max-width: 500px) {
+@media (max-width: 500px) {
   .hide-on-mobile {
     display: none;
   }
 }
 @media (min-width: 500px) {
-  .show-on-mobile {
+  .hide-on-desktop {
     display: none;
   }
-} */
+}
 
 
 @media only screen and (max-width: 600px) {
