@@ -9,8 +9,6 @@ export default function AdminNavBar() {
   const { setAdmin } = useContext(UserContext);
   const { setProjects } = useContext(AdminContext);
 
-  // TODO: fix navbar to top
-
   function handleLogout() {
     fetch("/logout", {
       method: "DELETE",
@@ -54,13 +52,13 @@ export default function AdminNavBar() {
     </>
   );
 
-  const desktop = (
+  const desktopNav = (
     <ul style={{ marginRight: "3%" }} className="hide-on-mobile">
       {navbar}
     </ul>
   );
 
-  const mobile = (
+  const mobileNav = (
     <li key="dropdown" role="list" dir="rtl" className="hide-on-desktop">
       <summary aria-haspopup="listbox" role="link">
         ☰
@@ -72,7 +70,7 @@ export default function AdminNavBar() {
   );
 
   return (
-    <body>
+    <article>
       <main class="container">
         <nav>
           <ul style={{ marginLeft: "5%" }}>
@@ -80,10 +78,10 @@ export default function AdminNavBar() {
               <strong>Codify</strong>
             </li>
           </ul>
-          {desktop}
-          {mobile}
+          {desktopNav}
+          {mobileNav}
         </nav>
       </main>
-    </body>
+    </article>
   );
 }
