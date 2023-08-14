@@ -7,7 +7,9 @@ export default function DevPage() {
 
   return (
     <>
-      <DevNavBar />
+      <div style={{ position: "sticky", top: "0" }}>
+        <DevNavBar />
+      </div>
       <Routes>
         <Route path="about" element={<AboutPage />} />
         <Route path="projects" element={<DevProjectPage />} />
