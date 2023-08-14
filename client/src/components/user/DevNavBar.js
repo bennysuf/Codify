@@ -88,13 +88,13 @@ export default function DevNavBar() {
     </>
   );
 
-  const desktop = (
+  const desktopNav = (
     <ul style={{ marginRight: "3%" }} className="hide-on-mobile">
       {navbar}
     </ul>
   );
 
-  const mobile = (
+  const mobileNav = (
     <li key="drop" role="list" dir="rtl" className="hide-on-desktop">
       <summary aria-haspopup="listbox" role="link">
         ☰
@@ -106,18 +106,18 @@ export default function DevNavBar() {
   );
 
   return (
-    <body>
-      <main class="container">
-        <nav>
-          <ul style={{ marginLeft: "5%" }}>
-            <li>
-              <strong onClick={() => navigate("/")}>Codify</strong>
-            </li>
-          </ul>
-          {desktop}
-          {mobile}
-        </nav>
-      </main>
-    </body>
+    <article>
+        <main class="container">
+          <nav>
+            <ul style={{ marginLeft: "5%" }}>
+              <li>
+                <strong onClick={() => navigate("/")}>Codify</strong>
+              </li>
+            </ul>
+            {desktopNav}
+            {mobileNav}
+          </nav>
+        </main>
+    </article>
   );
 }
