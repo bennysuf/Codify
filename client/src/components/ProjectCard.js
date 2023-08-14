@@ -7,13 +7,12 @@ export default function ProjectCard({ project, collabs }) {
   const { title, url, description, linkText } = project;
 
   // TODO: need to check if "https://" is in the url, else add it href={"https://" + url}
-  
 
   return (
     <article className="card">
       <header>{title}</header>
       <h4>
-        <a href={"https://" + url} target="_blank" rel="noreferrer">
+        <a href={url} target="_blank" rel="noreferrer">
           {linkText}
         </a>
       </h4>
@@ -31,7 +30,7 @@ export default function ProjectCard({ project, collabs }) {
                   dev_username !== currentDev?.username &&
                   dev_username !== admin?.username
                 ) {
-                  // *might not need it if ou cant add self username to begin with
+                  // *might not need it if you cant add self username to begin with
                   return (
                     <Link key={id} to={`/developer?developers=${dev_username}`}>
                       {dev_username}

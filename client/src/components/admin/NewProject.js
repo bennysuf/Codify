@@ -34,9 +34,14 @@ export default function NewProject() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    const validUrl = url.includes("https://" || "http://")
+      ? url
+      : "https://" + url;
+
     const created = {
       title: title,
-      url: url,
+      url: validUrl,
       linkText: webText,
       description: description,
     };
@@ -61,7 +66,7 @@ export default function NewProject() {
                   r.json().then((d) => {
                     // newProject.collaborations = [d];
                     // setProjects([newProject, ...projects]);
-                    setReload(d.dev_username)
+                    setReload(d.dev_username);
                   });
                 }
               });
@@ -70,7 +75,7 @@ export default function NewProject() {
             // setProjects([newProject, ...projects]);
           }
         });
-        setReload("reload")
+        setReload("reload");
         navigate("/admin/projects-page");
       } else {
         r.json().then((err) => {
@@ -87,7 +92,7 @@ export default function NewProject() {
   return (
     <>
       <body>
-        <main class="container">
+        <main>
           {errors.map((err) => (
             <h5 className="input" key={err}>
               {err}
@@ -95,27 +100,39 @@ export default function NewProject() {
           ))}
           <form onSubmit={handleSubmit}>
             <div className="input">
-              <input
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <input
-                placeholder="Url"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-              />
-              <input
-                placeholder="Website"
-                value={webText}
-                onChange={(e) => setWebText(e.target.value)}
-              />
-              <textarea
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                style={{ height: "100px" }}
-              />
+              <label>
+                Project name
+                <input
+                  placeholder="Project name"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </label>
+              <label>
+                URL
+                <input
+                  placeholder="i.e. github/project.com"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                />
+              </label>
+              <label>
+                URL title
+                <input
+                  placeholder="i.e. Github, Demo"
+                  value={webText}
+                  onChange={(e) => setWebText(e.target.value)}
+                />
+              </label>
+              <label>
+                Description
+                <textarea
+                  placeholder="Project description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  style={{ height: "100px" }}
+                />
+              </label>
               <div class="grid">
                 <details role="list">
                   <summary aria-haspopup="listbox" role="button">
@@ -125,13 +142,16 @@ export default function NewProject() {
                     {collaborators[0] ? (
                       collaborators.map((dev) => {
                         return (
-                          <li key={dev} onClick={() => handleCollabRemoval(dev)}>
+                          <li
+                            key={dev}
+                            onClick={() => handleCollabRemoval(dev)}
+                          >
                             Remove {dev}
                           </li>
                         );
                       })
-                    ): (
-                        <li key="key">Add collaborators</li>
+                    ) : (
+                      <li key="key">Add collaborators</li>
                     )}
                   </ul>
                 </details>

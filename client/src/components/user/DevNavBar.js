@@ -50,7 +50,7 @@ export default function DevNavBar() {
         <></>
       ) : (
         <li key="resume">
-          <Link to={"https://" + resume} target="_blank" rel="noreferrer">
+          <Link to={resume} target="_blank" rel="noreferrer">
             Resume
           </Link>
         </li>
@@ -62,10 +62,11 @@ export default function DevNavBar() {
           </summary>
           <ul role="listbox">
             {Object.entries(social_link).map((link) => {
+              const http = link[1].includes("https://");
               return link[1] ? (
                 <Link
                   key={link[0]}
-                  to={"https://" + link[1]}
+                  to={http ? link[1] : "https://" + link[1]}
                   style={{ marginBottom: "2px", margin: "2px" }}
                   target="_blank"
                   rel="noreferrer"

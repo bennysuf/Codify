@@ -60,14 +60,18 @@ export default function EditProject({ projectProp }) {
   function handleSubmit(e) {
     e.preventDefault();
 
+    const validUrl = newUrl.includes("https://" || "http://")
+      ? newUrl
+      : "https://" + newUrl;
+
     const update = {
       title: newTitle,
-      url: newUrl,
+      url: validUrl,
       linkText: newWebText,
       description: newDescription,
     };
     const collabs = [];
-    
+
     fetch(`/projects/${projectId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -92,16 +96,16 @@ export default function EditProject({ projectProp }) {
                   r.json().then((d) => {
                     // collabs.push(d)
                     // updatedProject.collaborations = collabs
-                    setReload(d.dev_username)
+                    setReload(d.dev_username);
                     // setProjects(updated);
                   });
                 }
               });
             });
             // } else {
-              // setProjects(updated);
-            }
-            setReload("reload");
+            // setProjects(updated);
+          }
+          setReload("reload");
           navigate("/admin/projects-page");
         });
       } else {
@@ -137,27 +141,39 @@ export default function EditProject({ projectProp }) {
       ))}
       <form onSubmit={handleSubmit}>
         <div className="input">
-          <input
-            placeholder="Title"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-          />
-          <input
-            placeholder="Link"
-            value={newUrl}
-            onChange={(e) => setNewUrl(e.target.value)}
-          />
-          <input
-            placeholder="Website"
-            value={newWebText}
-            onChange={(e) => setNewWebText(e.target.value)}
-          />
-          <textarea
-            placeholder="Description"
-            value={newDescription}
-            onChange={(e) => setNewDescription(e.target.value)}
-            style={{ height: "100px" }}
-          />
+          <label>
+            Project name
+            <input
+              placeholder="Project name"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+            />
+          </label>
+          <label>
+            URL
+            <input
+              placeholder="i.e. github/project.com"
+              value={newUrl}
+              onChange={(e) => setNewUrl(e.target.value)}
+            />
+          </label>
+          <label>
+            URL title
+            <input
+              placeholder="i.e. Github, Demo"
+              value={newWebText}
+              onChange={(e) => setNewWebText(e.target.value)}
+            />
+          </label>
+          <label>
+            Description
+            <textarea
+              placeholder="Project description"
+              value={newDescription}
+              onChange={(e) => setNewDescription(e.target.value)}
+              style={{ height: "100px" }}
+            />
+          </label>
           <div class="grid">
             <details role="list">
               <summary aria-haspopup="listbox" role="button">
@@ -167,7 +183,10 @@ export default function EditProject({ projectProp }) {
                 {newCollaborators?.length > 0 ? (
                   newCollaborators?.map((dev) => {
                     return (
-                      <li key={dev.dev_username || dev.username} onClick={() => handleCollabRemoval(dev)}>
+                      <li
+                        key={dev.dev_username || dev.username}
+                        onClick={() => handleCollabRemoval(dev)}
+                      >
                         Remove {dev.username || dev.dev_username}
                       </li>
                     );

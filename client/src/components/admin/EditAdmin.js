@@ -32,9 +32,13 @@ export default function EditAdmin() {
 
     setErrors([]);
 
+    const validResume = resumeUrl.includes("https://" || "http://")
+      ? resumeUrl
+      : "https://" + resumeUrl;
+
     const update = {
       about: aboutPage,
-      resume: resumeUrl,
+      resume: validResume,
       username: newUsername,
       public_profile: publicProfile,
       social_links: socialLinks,
@@ -94,9 +98,7 @@ export default function EditAdmin() {
         <dialog open>
           <article>
             <h3>Confirm your action!</h3>
-            <p>
-              Are you sure you want to perminatly delete your account?
-            </p>
+            <p>Are you sure you want to perminatly delete your account?</p>
             <footer>
               <a
                 href="#/"
@@ -123,9 +125,15 @@ export default function EditAdmin() {
       <form onSubmit={handleSubmit}>
         <div className="input">
           <br />
-          <label for="switch" style={{ marginLeft: "3%", width: "fit-content" }}>
+          <label
+            for="switch"
+            style={{ marginLeft: "3%", width: "fit-content" }}
+          >
             <input
-              type="checkbox" id="switch" name="switch" role="switch"
+              type="checkbox"
+              id="switch"
+              name="switch"
+              role="switch"
               checked={publicProfile}
               value={publicProfile.toString()}
               onChange={() => setPublicProfile(!publicProfile)}
@@ -152,7 +160,7 @@ export default function EditAdmin() {
           <label>
             Social links
             <select value={selectedKey} onChange={handleDropdownChange}>
-              <option value="">Select a social media</option>
+              <option value="">Select a platform</option>
               {Object.keys(socialLinks).map((key) => (
                 <option key={key} value={key}>
                   {key}
@@ -161,7 +169,7 @@ export default function EditAdmin() {
             </select>
             {selectedKey && (
               <input
-                placeholder={selectedKey}
+                placeholder={`i.e. ${selectedKey}.com/name`}
                 name={selectedKey}
                 value={socialLinks[selectedKey]}
                 onChange={handleChange}
@@ -187,7 +195,7 @@ export default function EditAdmin() {
         type="button"
         className="button"
         onClick={handleDeleteConfirmation}
-        style={{marginBottom: '50px'}}
+        style={{ marginBottom: "50px" }}
       >
         Delete Account
       </button>
