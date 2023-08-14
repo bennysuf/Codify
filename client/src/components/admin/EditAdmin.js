@@ -95,7 +95,7 @@ export default function EditAdmin() {
           <article>
             <h3>Confirm your action!</h3>
             <p>
-              By clicking Confirm you will permanently be deleting your account.
+              Are you sure you want to perminatly delete your account?
             </p>
             <footer>
               <a
@@ -107,7 +107,7 @@ export default function EditAdmin() {
                 Cancel
               </a>
               <a href="#confirm" role="button" onClick={handleDelete}>
-                Confirm
+                Delete
               </a>
             </footer>
           </article>
@@ -123,17 +123,14 @@ export default function EditAdmin() {
       <form onSubmit={handleSubmit}>
         <div className="input">
           <br />
-          <label style={{ marginLeft: "3%", width: "fit-content" }}>
-            {/* //TODO: how to have the onChange effect only the checkbox? */}
+          <label for="switch" style={{ marginLeft: "3%", width: "fit-content" }}>
             <input
-              type="checkbox"
-              id="terms"
-              name="terms"
+              type="checkbox" id="switch" name="switch" role="switch"
               checked={publicProfile}
               value={publicProfile.toString()}
               onChange={() => setPublicProfile(!publicProfile)}
             />
-            Public profile {publicProfile ? "ON" : "OFF"}
+            Account {publicProfile ? "Public" : "Private"}
           </label>
           <br />
           <label>
@@ -147,7 +144,7 @@ export default function EditAdmin() {
           <label>
             Resume URL
             <input
-              placeholder="Resume link"
+              placeholder="i.e. myresume.com"
               value={resumeUrl}
               onChange={(e) => setResumeUrl(e.target.value)}
             />
