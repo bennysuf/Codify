@@ -25,7 +25,9 @@ export default function Admin({ admin }) {
         setReload,
       }}
     >
+      <div style={{position:"sticky", top:"0"}}>
       <AdminNavBar />
+      </div>
       <Routes>
         <Route path="edit-admin" element={<EditAdmin />} />
         <Route path="new-project" element={<NewProject />} />
