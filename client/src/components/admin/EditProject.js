@@ -115,6 +115,7 @@ export default function EditProject({ projectProp }) {
             arr.push(`${key}: ${err.errors[key]}`);
           }
           setErrors(arr);
+          window.scrollTo(0, 0);
         });
       }
     });
