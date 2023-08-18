@@ -30,12 +30,14 @@
     be displayed instead of the URL (e.g. Github). By selecting multiple Developers 
     from the dropdown list you can add them as collaborators to that project.
 
-### Users side
+### User side
 https://github.com/bennysuf/Codify/assets/109253075/8c6fa11c-8682-4e5c-8a58-35766a9a1743
 
+### Admin/Developer side
+https://github.com/bennysuf/Codify/assets/109253075/38128158-b18a-4815-a721-f517cf6e3997
 
-
-
+### Responsive UI
+https://github.com/bennysuf/Codify/assets/109253075/0d79e6d7-1fdc-4091-873e-471d0dbafef8
 
 ## Key details:
     UI source: 
