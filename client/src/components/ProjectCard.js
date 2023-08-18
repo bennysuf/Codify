@@ -6,8 +6,6 @@ export default function ProjectCard({ project, collabs }) {
   const { currentDev, admin } = useContext(UserContext);
   const { title, url, description, linkText } = project;
 
-  // TODO: need to check if "https://" is in the url, else add it href={"https://" + url}
-
   return (
     <article className="card">
       <header>{title}</header>
@@ -24,6 +22,7 @@ export default function ProjectCard({ project, collabs }) {
               Collaborators
             </summary>
             <ul role="listbox">
+              {/* //! collab appears ontop of nav card */}
               {collabs.map((dev) => {
                 const { dev_username, id } = dev;
                 if (
