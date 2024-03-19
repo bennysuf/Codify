@@ -1,7 +1,7 @@
 # Codify
 
 ## What my project is:
-    This is a web-based application enabling developers
+    This is a web-based application that enables developers
     to showcase and host their portfolios, projects, social links, 
     and resumes, while providing users with a seamless browsing experience 
     to discover and evaluate developers.
@@ -12,7 +12,7 @@
 ## How to use it:
     As a user, you can browse Developers and check out their portfolios.
 
-    If you are Developer you can signup or log in. 
+    If you are a Developer you can sign up or log in. 
 
     Once signed in your account will be automatically set to private, you can 
     change that in the Edit profile section by clicking 'Public profile On', there 
@@ -30,13 +30,13 @@
     be displayed instead of the URL (e.g. Github). By selecting multiple Developers 
     from the dropdown list you can add them as collaborators to that project.
 
-### User side
+### User side walkthrough video
 https://github.com/bennysuf/Codify/assets/109253075/8c6fa11c-8682-4e5c-8a58-35766a9a1743
 
-### Admin/Developer side
+### Admin/Developer side walkthrough video
 https://github.com/bennysuf/Codify/assets/109253075/38128158-b18a-4815-a721-f517cf6e3997
 
-### Responsive UI
+### Responsive UI display video
 https://github.com/bennysuf/Codify/assets/109253075/0d79e6d7-1fdc-4091-873e-471d0dbafef8
 
 ## Key details:
